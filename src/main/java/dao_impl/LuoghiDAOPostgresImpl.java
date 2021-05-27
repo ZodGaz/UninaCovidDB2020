@@ -1,0 +1,76 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dao_impl;
+
+import daos.LuoghiDAO;
+import entity.Luoghi;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
+/**
+ *
+ * @author linux
+ */
+public class LuoghiDAOPostgresImpl implements LuoghiDAO
+{
+
+        private Connection connection;
+        private PreparedStatement InserisciLuoghiPS;
+    
+        //blablabla aggiungere altri prepared statements 
+         public LuoghiDAOPostgresImpl(Connection connection) throws SQLException {
+        this.connection=connection;
+//        getPersonaByNomePS = connection.prepareStatement("SELECT * FROM persona where nome like ?");
+        InserisciLuoghiPS = connection.prepareStatement("INSERT INTO luoghi VALUES (?, ?, ?, ?, ?)");
+    } 
+        
+    @Override
+    public List<Luoghi> getAllLuoghi() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Luoghi> getLuoghiaByOraInizio(String orafine) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Luoghi> getLuoghiByOraFine(String orainizio) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Luoghi> getLuoghiByIdLocation(String IDlocation) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Luoghi> getLuoghiBycf_c(String cf_c) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int inserisciLuoghi(Luoghi luoghi) throws SQLException {
+        InserisciLuoghiPS.setString(1, luoghi.getIDlocation());
+        InserisciLuoghiPS.setDate(2, (Date) luoghi.getData());
+        InserisciLuoghiPS.setString(3, luoghi.getOrafine());
+        InserisciLuoghiPS.setString(4, luoghi.getOrafine());
+        InserisciLuoghiPS.setString(5, luoghi. getCf_c());
+        
+        System.out.println(InserisciLuoghiPS);
+        int row = InserisciLuoghiPS.executeUpdate();
+        return row;
+    }
+
+    @Override
+    public int cancellaLuoghi(Luoghi luoghi) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+}
