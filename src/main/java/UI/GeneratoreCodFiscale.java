@@ -9,15 +9,24 @@ import UI.Anagrafica.Cognome;
 import UI.Anagrafica.DataN;
 import UI.Anagrafica.Nome;
 import UI.Controllo.Codice;
+import dao_impl.PersonaDAOPostgresImpl;
+import daos.PersonaDAO;
+import dbConfig.DBConnection;
+import entity.Persona;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.jdesktop.swingx.JXDatePicker;
-
 
 /**
  *
@@ -270,12 +279,12 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
-        java.util.Date utilDate = new java.util.Date();
-        utilDate = jDateChooser1.getDate();
-        String s = fmt.format(jDateChooser1.getDate());
-        jLabel8.setText(s);
-        System.out.println(s);
+//        DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+//        java.util.Date utilDate = new java.util.Date();
+//        utilDate = jDateChooser1.getDate();
+//        String s = fmt.format(jDateChooser1.getDate());
+//        jLabel8.setText(s);
+//        System.out.println(s);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -295,19 +304,22 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
         String nome = jTextField1.getText().toUpperCase();
-        if (nome.equals("")){
+        nome.replaceAll(" ", "");
+        if (nome.equals("")) {
             jTextField4.setText("Nome mancante !!");
-        }else{
+        } else {
             System.out.println(nome);
         }
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
-        String comune = jTextField2.getText().toUpperCase();
-        if (comune.equals("")){
+        String comune = jTextField2.getText().replaceAll(" ", "").toUpperCase();
+
+
+        if (comune.equals("")) {
             jTextField2.setText("Comune di nascita mancante !!");
-        }else{
+        } else {
             System.out.println(comune);
         }
     }//GEN-LAST:event_jTextField2ActionPerformed
@@ -316,9 +328,10 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         String cognome = jTextField3.getText().toUpperCase();
-        if (cognome.equals("")){
+        
+        if (cognome.equals("")) {
             jTextField4.setText("Cognome mancante !!");
-        }else{
+        } else {
             System.out.println(cognome);
         }
     }//GEN-LAST:event_jTextField3ActionPerformed
@@ -326,15 +339,20 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
         String provincia = jTextField4.getText().toUpperCase();
-        if (provincia.equals("")){
+        provincia.replaceAll(" ", "");
+
+        if (provincia.equals("")) {
             jTextField4.setText("Provincia di nascita mancante !!");
-        }else{
+        } else {
             System.out.println(provincia);
         }
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        PersonaDAO dao = null;
+        DBConnection dbconn = null;
+
         int i;
         String nome1, cogn, cBG, dt, luogo, prov;
         Nome nome = new Nome();
@@ -352,6 +370,12 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
         dt = jLabel8.getText();
         luogo = jTextField3.getText();
         prov = jTextField4.getText();
+        DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+        java.util.Date utilDate = new java.util.Date();
+        utilDate = jDateChooser1.getDate();
+        String s = fmt.format(jDateChooser1.getDate());
+        jLabel8.setText(s);
+        System.out.println(s);
 
         if (nome1.equals("") | cogn.equals("") | dt.equals("") | luogo.equals("") | prov.equals("")) {
 
@@ -363,24 +387,41 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
             System.out.println(codifica);
             codifica += datan.calcolaData(dt, labelSex);
             System.out.println(codifica);
-
-            //            codifica += codice.codiceCatastale(luogo, prov);
-
-            //            campi[0]==Codice catastale,
-            //            campi[1]==Comune,
-            //            campi[2]==Provincia.
-            String campi[]={"", "", ""};
-            String cartella="C:\\Users\\Radiu\\OneDrive\\Documenti\\NetBeansProjects\\Inserimento\\";
-            String nomeFile="Codici_catastali";
-            String estensione=".txt";
-            String file=cartella+nomeFile+estensione;
-            new LeggiFileTXT(campi,luogo,prov,file);
-            if (campi[0].equals("")) System.err.println("Luogo non esistente !!");
-            else codifica+=campi[0];
+            String campi[] = {"", "", ""};
+            String cartella = "C:\\Users\\Radiu\\OneDrive\\Documenti\\NetBeansProjects\\Inserimento\\";
+            String nomeFile = "Codici_catastali";
+            String estensione = ".txt";
+            String file = cartella + nomeFile + estensione;
+            new LeggiFileTXT(campi, luogo, prov, file);
+            if (campi[0].equals("")) {
+                System.err.println("Luogo non esistente !!");
+            } else {
+                codifica += campi[0];
+            }
             System.out.println(codifica);
             codifica += codice.codiceControllo(codifica);
             System.out.println(codifica);
             jLabel9.setText(codifica);
+
+            try {
+                dbconn = DBConnection.getInstance();
+                Connection connection = dbconn.getConnection();
+                dao = new PersonaDAOPostgresImpl(connection);
+                SimpleDateFormat c = new SimpleDateFormat("dd/MM/yyyy");
+                Persona p1 = new Persona(codifica, nome1, cogn, "p.budo@studenti.unina.it", labelSex, prov, luogo, "", c.parse(dt));
+                int res = dao.inserisciPersona(p1);
+                System.out.println(res);
+                List<Persona> lista = dao.getPersonaByNome("P%");
+                for (Persona pp : lista) {
+                    System.out.println(pp.toString());
+                }
+
+            } catch (SQLException | ParseException ex) {
+                Logger.getLogger(GeneratoreCodFiscale.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //            displayArea.setText(codifica);
+            //
+
             //            displayArea.setText(codifica);
             //
         }
