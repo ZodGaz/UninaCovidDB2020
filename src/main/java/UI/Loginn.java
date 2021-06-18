@@ -149,9 +149,11 @@ public class Loginn extends javax.swing.JFrame {
         if (username.equals("postgres") && password.equals("4040")) {
             try {
                 dbconn = DBConnection.getInstance();
-                connection = dbconn.getConnection();
+                 connection = dbconn.getConnection();
                 builder = new DBuilder(connection);
                 System.out.println("UI.Login.jButton1ActionPerformed()-->login succeded");
+                this.setVisible(false);
+                new MainMenu().setVisible(true);
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);

@@ -43,18 +43,38 @@ import java.text.SimpleDateFormat;
 public class PersonaDAOPostgresImpl implements PersonaDAO
 {
     private Connection connection;
-    private PreparedStatement getPersonaByNomePS, inserisciPersonaPS;
+    private PreparedStatement getPersonaByNomePS, inserisciPersonaPS,getAllPersonaPS;
 
     public PersonaDAOPostgresImpl(Connection connection) throws SQLException {
         this.connection=connection;
         getPersonaByNomePS = connection.prepareStatement("SELECT * FROM persona where nome like ?");
+        getAllPersonaPS = connection.prepareStatement("SELECT * FROM persona");
         inserisciPersonaPS = connection.prepareStatement("INSERT INTO persona VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     }
 
 
     @Override
-    public List<Persona> getAllPersona() {
-        return null;
+    public List<Persona> getAllPersona() throws SQLException {
+//         getAllPersonaPS.setString(0,"n );
+        ResultSet rs= getAllPersonaPS.executeQuery();
+        List<Persona> lista = new ArrayList<Persona>();
+        while(rs.next())
+        {
+            Persona p = new Persona
+           (rs.getString("cf")); //rs.getString(1)
+            p.setNome(rs.getString("nome"));
+            p.setCognome(rs.getString("cognome"));
+            p.setEmail(rs.getString("email"));
+            p.setSesso(rs.getString("sesso"));
+            p.setProvinciaN(rs.getString("provinciaN"));
+            p.setCittaN(rs.getString("cittaN"));
+            p.setNumeroTel(rs.getString("numeroTel"));
+            p.setDatan(rs.getDate("datan"));
+            lista.add(p);
+        }
+        rs.close();
+        return lista;
+//        return null;
     }
 
    

@@ -70,15 +70,15 @@ public class Main {
             
                             SimpleDateFormat c = new SimpleDateFormat("yyyy/MM/dd");
 
-           Persona p1  =  new Persona("FFFSRT57T64Y008N", "Pippo", "Baudo", "p.budo@studenti.unina.it","M","NA","MaranodiNapoli","",c.parse("1999/10/12"));
-           Persona p2  =  new Persona("WTFMBG81E29L231N", "Pino", "Silvestre", "p.silvestre@studenti.unina.it","F","NA","MugnanodiNapoli","",c.parse("1998/01/12"));
-           Persona p3  =  new Persona("GDVSXL61C01B620S", "Lino", "Musso", "l.musso@studenti.unina.it","M","NA","Pompei","", c.parse("1987/03/14"));
-            int res =  dao.inserisciPersona(p1);
-            System.out.println(res);
-            int res2 = dao.inserisciPersona(p2);
-            System.out.println(res2);
-            int res3 = dao.inserisciPersona(p3);
-            System.out.println(res3);
+//           Persona p1  =  new Persona("FFFSRT57T64Y008N", "Pippo", "Baudo", "p.budo@studenti.unina.it","M","NA","MaranodiNapoli","",c.parse("1999/10/12"));
+//           Persona p2  =  new Persona("WTFMBG81E29L231N", "Pino", "Silvestre", "p.silvestre@studenti.unina.it","F","NA","MugnanodiNapoli","",c.parse("1998/01/12"));
+//           Persona p3  =  new Persona("GDVSXL61C01B620S", "Lino", "Musso", "l.musso@studenti.unina.it","M","NA","Pompei","", c.parse("1987/03/14"));
+//            int res =  dao.inserisciPersona(p1);
+//            System.out.println(res);
+//            int res2 = dao.inserisciPersona(p2);
+//            System.out.println(res2);
+//            int res3 = dao.inserisciPersona(p3);
+//            System.out.println(res3);
 
             List<Persona> lista = dao.getPersonaByNome("P%");
             
