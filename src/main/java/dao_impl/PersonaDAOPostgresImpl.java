@@ -43,7 +43,8 @@ import java.text.SimpleDateFormat;
 public class PersonaDAOPostgresImpl implements PersonaDAO
 {
     private Connection connection;
-    private PreparedStatement getPersonaByNomePS, inserisciPersonaPS,getAllPersonaPS;
+    public PreparedStatement getAllPersonaPS;
+    private PreparedStatement getPersonaByNomePS, inserisciPersonaPS;
 
     public PersonaDAOPostgresImpl(Connection connection) throws SQLException {
         this.connection=connection;

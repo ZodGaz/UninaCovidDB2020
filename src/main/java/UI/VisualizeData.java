@@ -10,12 +10,14 @@ import daos.PersonaDAO;
 import dbConfig.DBConnection;
 import entity.Persona;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -106,17 +108,10 @@ public class VisualizeData extends javax.swing.JFrame {
         try {
             dbconn = DBConnection.getInstance();
             Connection connection = dbconn.getConnection();
-            dao = new PersonaDAOPostgresImpl(connection);
-            
-            List<Persona> list = dao.getAllPersona();
-            for (Persona pp : list) {
-                String tbData[] = {pp.getCf(),pp.getNome(),pp.getCognome(),pp.getEmail(),pp.getSesso(),pp.getProvinciaN(),pp.getCittaN(),pp.getNumeroTel(),pp.getDatan().toString()};
-                DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
-                tblModel.addRow(tbData);
-                System.out.println(pp.toString());
-            }
+            PersonaDAOPostgresImpl ps= new PersonaDAOPostgresImpl(connection);
+            ResultSet rs = ps.getAllPersonaPS.executeQuery();
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));    
             //use rs2xml
-//           System.out.println(res);
 
         } catch (SQLException ex) {
             Logger.getLogger(VisualizeData.class.getName()).log(Level.SEVERE, null, ex);

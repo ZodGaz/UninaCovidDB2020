@@ -22,7 +22,11 @@
             <artifactId>pgjdbc-benchmark</artifactId>
             <version>42.2.2</version>
         </dependency>
-        
+        <dependency>
+            <groupId>rs2xml</groupId>
+            <artifactId>rs2xml</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
