@@ -50,9 +50,7 @@ public class Main {
             dbconn = DBConnection.getInstance();
             connection = dbconn.getConnection();
             builder = new DBuilder(connection);
-            
-//            builder.createTypeInfo_rel();
-//            builder.createTypeSintomo();
+
             builder.createTablePersona();
             builder.createTableLuoghi();
             builder.createTableTamponi();

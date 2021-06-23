@@ -74,7 +74,6 @@ public class PersonaDAOPostgresImpl implements PersonaDAO
         }
         rs.close();
         return lista;
-//        return null;
     }
 
    
