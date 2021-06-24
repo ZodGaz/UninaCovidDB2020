@@ -47,15 +47,6 @@ public class DBuilder
 
     }
     
-//      private boolean TypeExists(String typ_name) throws SQLException
-//    {
-//        DatabaseMetaData metadata = connection.getMetaData();
-//        ResultSet types = metadata.getTypes(null, "%", "", "%");
-//        if (types.next())
-//            return true;
-//        return false;
-//
-//    }
 
      public int createDomainGender() throws ConnectionException
     {
@@ -316,7 +307,7 @@ public class DBuilder
                     String sql = "CREATE TABLE Residenza(" +
                                  "via VARCHAR(255) NOT NULL," +
                                  "citta VARCHAR(255) NOT NULL," +
-                                 "civico BIGINT NOT NULL," +
+                                 "civico VARCHAR(255) NOT NULL," +
                                  "cf_r VARCHAR(16) NOT NULL," +
                                  "cap VARCHAR(16) NOT NULL," +
                                  "CONSTRAINT pk_residenza PRIMARY KEY (via, citta, civico, cap)," +
@@ -344,5 +335,16 @@ public class DBuilder
     }   
    
 }
+//creare trigger builder 
+  /*CREATE FUNCTION residenza_import() RETURNS trigger AS $residenza_import$
+    BEGIN
+        IF NEW.cf IS NOT NULL THEN
+		INSERT INTO residenza VALUES ('to_define','to_define','to_define',NEW.cf,'to_define');
+		END IF;
+		 RETURN NULL;
+    END;
+	
+$residenza_import$ LANGUAGE plpgsql;
 
-  
+ CREATE TRIGGER residenza_import AFTER INSERT OR UPDATE ON persona
+ FOR EACH ROW EXECUTE PROCEDURE residenza_import();*/

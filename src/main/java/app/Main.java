@@ -59,7 +59,7 @@ public class Main {
             builder.createDomainGender();
             builder.createDomainTipologia();
 
-    
+            
             PersonaDAO dao = null;
 
             if(args[0].equals("ps"))

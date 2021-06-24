@@ -1,9 +1,12 @@
 dao_impl\LuoghiDAOPostgresImpl.class
+UI\InsertMenu$5.class
 app\Main.class
+UI\VisualizeData$4.class
 UI\Loginn$3.class
 UI\Anagrafica\Nome.class
 UI\GeneratoreCodFiscale$1.class
 entity\Residenza.class
+UI\ResidenzaMenu.class
 UI\GeneratoreCodFiscale$8.class
 UI\Loginn$2.class
 UI\MainMenu.class
@@ -38,10 +41,12 @@ UI\Loginn$5.class
 daos\LuoghiDAO.class
 UI\GeneratoreCodFiscale$5.class
 entity\Tamponi.class
+UI\InsertMenu$6.class
 dbConfig\DBConnection.class
 UI\VisualizeData.class
 dao_impl\TamponiDAOPostgresImpl.class
 UI\Anagrafica\Cognome.class
+UI\ResidenzaMenu$1.class
 UI\Controllo\Codice.class
 UI\GeneratoreCodFiscale$2.class
 UI\CF.class
