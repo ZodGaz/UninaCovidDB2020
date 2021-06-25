@@ -43,7 +43,7 @@ import java.text.SimpleDateFormat;
 public class PersonaDAOPostgresImpl implements PersonaDAO
 {
     private Connection connection;
-    public PreparedStatement getAllPersonaPS;
+    public PreparedStatement getAllPersonaPS,getCfPersonaPS;
     private PreparedStatement getPersonaByNomePS, inserisciPersonaPS;
 
     public PersonaDAOPostgresImpl(Connection connection) throws SQLException {
@@ -51,6 +51,7 @@ public class PersonaDAOPostgresImpl implements PersonaDAO
         getPersonaByNomePS = connection.prepareStatement("SELECT * FROM persona where nome like ?");
         getAllPersonaPS = connection.prepareStatement("SELECT * FROM persona");
         inserisciPersonaPS = connection.prepareStatement("INSERT INTO persona VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        getCfPersonaPS = connection.prepareStatement("SELECT cf FROM persona");
     }
 
 

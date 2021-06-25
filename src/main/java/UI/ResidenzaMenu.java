@@ -221,7 +221,6 @@ public class ResidenzaMenu extends javax.swing.JFrame {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         // TODO add your handling code here:
-        ResidenzaDAO dao = null;
         DBConnection dbconn = null;
 
         try {
@@ -232,7 +231,6 @@ public class ResidenzaMenu extends javax.swing.JFrame {
             while (rs.next()) {
                 jComboBox1.addItem(rs.getString("cf_r"));
             }
-            //use rs2xml
 
         } catch (SQLException ex) {
             Logger.getLogger(VisualizeData.class.getName()).log(Level.SEVERE, null, ex);

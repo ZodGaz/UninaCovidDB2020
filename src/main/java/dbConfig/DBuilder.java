@@ -269,7 +269,7 @@ public class DBuilder
                                  "esito VARCHAR(20) NOT NULL," +
                                  "dataTampone date NOT NULL," +
                                  "cf_paziente VARCHAR(16) NOT NULL," +
-                                 "cod_paziente VARCHAR(16) NOT NULL," +
+                                 "cod_paziente VARCHAR(255) NOT NULL," +
                                  "CONSTRAINT pk_tamponi PRIMARY KEY (cod_paziente, dataTampone)," +
                                  "CONSTRAINT fk_tamponi FOREIGN KEY (cf_paziente)" +
                                  "REFERENCES public.Persona (cf) MATCH SIMPLE " +
