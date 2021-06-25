@@ -117,7 +117,6 @@ public class VisualizeData extends javax.swing.JFrame {
         // TODO add your handling code here:
         PersonaDAO dao = null;
         DBConnection dbconn = null;
-        Persona persona = null;
         
         try {
             dbconn = DBConnection.getInstance();

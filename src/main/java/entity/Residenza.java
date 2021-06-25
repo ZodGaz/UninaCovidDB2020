@@ -12,12 +12,12 @@ package entity;
 public class Residenza {
      
      private String citta;
-     private int civico;
+     private String civico;
      private String via;
      private String cf_r;
      private String cap;
      
-     public Residenza (String via, String citta,int civico,String cf_r,String cap){
+     public Residenza (String via, String citta,String civico,String cf_r,String cap){
      
      this.via = via;
      this.citta = citta;
@@ -35,11 +35,11 @@ public class Residenza {
         this.citta = citta;
     }
 
-    public int getCivico() {
+    public String getCivico() {
         return civico;
     }
 
-    public void setCivico(int civico) {
+    public void setCivico(String civico) {
         this.civico = civico;
     }
 

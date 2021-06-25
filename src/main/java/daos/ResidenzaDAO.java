@@ -21,6 +21,7 @@ public interface ResidenzaDAO {
     public List<Residenza> getResidenzaByVia(String via) throws SQLException;
     public List<Residenza> getResidenzaBycf_r(String cf_r) throws SQLException;
     public List<Residenza> getResidenzaBycap(String cap) throws SQLException;
+    public int updateResidenza(Residenza residenza) throws SQLException;
 //    public List<Residenza> getResidenzaByPK()throws SQLException;
 
     public int inserisciResidenza(Residenza residenza) throws SQLException;

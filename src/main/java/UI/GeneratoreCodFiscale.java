@@ -469,7 +469,6 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
         // TODO add your handling code here:
         String email = jTextField5.getText();
 
-//        System.out.println(email + " : " + matcher.matches());
 
     }//GEN-LAST:event_jTextField5ActionPerformed
 

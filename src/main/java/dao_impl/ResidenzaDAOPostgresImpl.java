@@ -14,23 +14,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
  * @author linux
  */
-public class ResidenzaDAOPostgresImpl implements ResidenzaDAO{
-    
+public class ResidenzaDAOPostgresImpl implements ResidenzaDAO {
+
     private Connection connection;
-    private PreparedStatement inserisciResidenzaPS;
-    
+    public PreparedStatement inserisciResidenzaPS, getResidenzaPS, updateResidenzaPS;
+
     //blablabla aggiungere altri prepared statements 
-     public ResidenzaDAOPostgresImpl(Connection connection) throws SQLException {
-        this.connection=connection;
-//        getPersonaByNomePS = connection.prepareStatement("SELECT * FROM persona where nome like ?");
+    public ResidenzaDAOPostgresImpl(Connection connection) throws SQLException {
+        this.connection = connection;
+        getResidenzaPS = connection.prepareStatement("SELECT cf_r FROM residenza");
         inserisciResidenzaPS = connection.prepareStatement("INSERT INTO residenza VALUES (?, ?, ?, ?, ?)");
+        updateResidenzaPS = connection.prepareStatement("UPDATE residenza SET via = ?,citta = ?,civico = ?,cap = ? WHERE cf_r = ?");
+
     }
-    
-    
+
     @Override
     public List<Residenza> getAllResidenza() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -65,10 +67,10 @@ public class ResidenzaDAOPostgresImpl implements ResidenzaDAO{
     public int inserisciResidenza(Residenza residenza) throws SQLException {
         inserisciResidenzaPS.setString(1, residenza.getVia());
         inserisciResidenzaPS.setString(2, residenza.getCitta());
-        inserisciResidenzaPS.setInt(3, residenza.getCivico());
-        inserisciResidenzaPS.setString(4, residenza.getCap());
-        inserisciResidenzaPS.setString(5, residenza.getCf_r());
-        
+        inserisciResidenzaPS.setString(3, residenza.getCivico());
+        inserisciResidenzaPS.setString(4, residenza.getCf_r());
+        inserisciResidenzaPS.setString(5, residenza.getCap());
+
         System.out.println(inserisciResidenzaPS);
         int row = inserisciResidenzaPS.executeUpdate();
         return row;
@@ -78,5 +80,18 @@ public class ResidenzaDAOPostgresImpl implements ResidenzaDAO{
     public int cancellaResidenza(Residenza residenza) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
+    @Override
+    public int updateResidenza(Residenza residenza) throws SQLException {
+        updateResidenzaPS.setString(1, residenza.getVia());
+        updateResidenzaPS.setString(2, residenza.getCitta());
+        updateResidenzaPS.setString(3, residenza.getCivico());
+        updateResidenzaPS.setString(4, residenza.getCap());
+        updateResidenzaPS.setString(5, residenza.getCf_r());
+
+        System.out.println(updateResidenzaPS);
+        int row = updateResidenzaPS.executeUpdate();
+        return row;
+    }
+
 }

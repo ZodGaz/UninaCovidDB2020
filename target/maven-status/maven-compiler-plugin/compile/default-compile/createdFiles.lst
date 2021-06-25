@@ -1,4 +1,5 @@
 dao_impl\LuoghiDAOPostgresImpl.class
+UI\ResidenzaMenu$7.class
 UI\InsertMenu$5.class
 app\Main.class
 UI\VisualizeData$4.class
@@ -7,15 +8,18 @@ UI\Anagrafica\Nome.class
 UI\GeneratoreCodFiscale$1.class
 entity\Residenza.class
 UI\ResidenzaMenu.class
+UI\ResidenzaMenu$3.class
 UI\GeneratoreCodFiscale$8.class
 UI\Loginn$2.class
 UI\MainMenu.class
+UI\ResidenzaMenu$8.class
 daos\TamponiDAO.class
 UI\VisualizeData$1.class
 UI\GeneratoreCodFiscale.class
 UI\LeggiFileTXT.class
 UI\MainMenu$1.class
 UI\MainMenu$4.class
+UI\ResidenzaMenu$6.class
 UI\InsertMenu$1.class
 dao_impl\PersonaDAOPostgresImpl.class
 UI\GeneratoreCodFiscale$7.class
@@ -26,11 +30,14 @@ dao_impl\ResidenzaDAOPostgresImpl.class
 UI\GeneratoreCodFiscale$4.class
 daos\PersonaDAO.class
 UI\VisualizeData$2.class
+UI\ResidenzaMenu$2.class
+UI\ResidenzaMenu$9.class
 dbConfig\DBuilder.class
 UI\GeneratoreCodFiscale$6.class
 exceptions\ConnectionException.class
 UI\Loginn.class
 UI\MainMenu$3.class
+UI\ResidenzaMenu$5.class
 UI\TestMenu$1.class
 daos\ResidenzaDAO.class
 entity\Persona.class
@@ -49,6 +56,7 @@ UI\Anagrafica\Cognome.class
 UI\ResidenzaMenu$1.class
 UI\Controllo\Codice.class
 UI\GeneratoreCodFiscale$2.class
+UI\ResidenzaMenu$4.class
 UI\CF.class
 UI\GeneratoreCodFiscale$9.class
 UI\InsertMenu.class
