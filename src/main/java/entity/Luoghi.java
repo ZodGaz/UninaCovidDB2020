@@ -18,6 +18,7 @@ public class Luoghi {
     private String orafine;    
     private String cf_c;
     private String IDlocation;
+    private String descrizione;
 
     public Date getData() {
         return data;
@@ -59,10 +60,21 @@ public class Luoghi {
         this.IDlocation = IDlocation;
     }
 
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
     @Override
     public String toString() {
-        return "Luoghi{" + "data=" + data + ", orainizio=" + orainizio + ", orafine=" + orafine + ", cf_c=" + cf_c + ", IDlocation=" + IDlocation + '}';
+        return "Luoghi{" + "data=" + data + ", orainizio=" + orainizio + ", orafine=" + orafine + ", cf_c=" + cf_c + ", IDlocation=" + IDlocation + ", descrizione=" + descrizione + '}';
     }
+
+    
+
   
 
 

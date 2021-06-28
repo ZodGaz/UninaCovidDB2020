@@ -27,6 +27,12 @@
             <artifactId>rs2xml</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.lgooddatepicker</groupId>
+            <artifactId>LGoodDatePicker</artifactId>
+            <version>11.2.1</version>
+            <classifier>core</classifier>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

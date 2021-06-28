@@ -197,31 +197,14 @@ public class DBuilder
             try {
                 Statement st = connection.createStatement();
 
-               /* if (!tableExists("info_contatto")) {
-                    String sql = "CREATE TABLE info_contatto " +
-                            "(cf VARCHAR(16) not NULL, " +
-                            " data , DATE not NULL " +
-                            " OraInizio, time with time zone " +
-                            " Durata_Esposizione , time with time zone " +
-                            " Info_Rel , info_rel  " +
-                            " Cod_Rel , VARCHAR(200) " +
-                            " CF_Positivo , VARCHAR(16) " +
-                            " CF_Contatto , VARCHAR(16) " +
-                            " data , DATE not NULL; "; 
-
-                    result = st.executeUpdate(sql);
-                    st.close();*/
                    
                 if (!tableExists("public.Luoghi")) {
                         String sql = "CREATE TABLE public.Luoghi(" +
-//                                 "coordinate character varying(500) COLLATE pg_catalog.default NOT NULL," +
+
                                  "data date NOT NULL," +
                                  "oraInizio time with time zone NOT NULL," +
                                  "oraFine time with time zone NOT NULL," +
-//                                 "durata_esposizione time with time zone NOT NULL," +
-//                                 "info_rel info_rel NOT NULL," +
-//                                 "cod_rel character varying(200) COLLATE pg_catalog.default NOT NULL," +
-//                                 "cf_postivo VARCHAR(16) NOT NULL," +
+                                 "descrizione VARCHAR(255)," +
                                  "cf_c VARCHAR(16) NOT NULL," +
                                  "IDlocation VARCHAR(255)," +
                                 "CONSTRAINT PK_luoghi PRIMARY KEY (IDlocation)," +
@@ -229,10 +212,7 @@ public class DBuilder
                                 "REFERENCES public.Persona (cf) MATCH SIMPLE " +
                                 "ON UPDATE CASCADE " +
                                 "ON DELETE CASCADE)";
-//                                "CONSTRAINT FK_CF2 FOREIGN KEY (cf_contatto) " +
-//                                "REFERENCES public.persona (cf) MATCH SIMPLE " +
-//                                "ON UPDATE CASCADE " +
-//                                "ON DELETE CASCADE)"; 
+
 
                     result = st.executeUpdate(sql);
                     st.close();

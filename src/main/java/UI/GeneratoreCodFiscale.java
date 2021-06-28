@@ -189,7 +189,11 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
 
         jLabel11.setText("Recapito telefonico :");
 
-        jTextField6.setText("jTextField6");
+        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField6ActionPerformed(evt);
+            }
+        });
 
         jLabel12.setText("Genera il codice fiscale del paziente e ne inserisce i dati nel db ");
 
@@ -477,6 +481,10 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
         this.setVisible(false);
         new InsertMenu().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6ActionPerformed
 
     /**
      * @param args the command line arguments

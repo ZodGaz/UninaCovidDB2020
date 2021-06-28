@@ -11,6 +11,7 @@ UI\GeneratoreCodFiscale$1.class
 entity\Residenza.class
 UI\TamponiMenu$8.class
 UI\ResidenzaMenu.class
+UI\ContattiMenu$1.class
 UI\ResidenzaMenu$3.class
 UI\GeneratoreCodFiscale$8.class
 UI\Loginn$2.class
@@ -43,6 +44,7 @@ UI\ResidenzaMenu$9.class
 dbConfig\DBuilder.class
 UI\GeneratoreCodFiscale$6.class
 exceptions\ConnectionException.class
+UI\ContattiMenu.class
 UI\Loginn.class
 UI\TamponiMenu$3.class
 UI\TamponiMenu$11.class
@@ -60,6 +62,7 @@ UI\GeneratoreCodFiscale$5.class
 entity\Tamponi.class
 UI\InsertMenu$6.class
 dbConfig\DBConnection.class
+UI\GeneratoreCodFiscale$11.class
 UI\VisualizeData.class
 dao_impl\TamponiDAOPostgresImpl.class
 UI\Anagrafica\Cognome.class
