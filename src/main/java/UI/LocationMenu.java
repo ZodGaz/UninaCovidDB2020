@@ -7,11 +7,13 @@ package UI;
 
 import dao_impl.LuoghiDAOPostgresImpl;
 import dao_impl.PersonaDAOPostgresImpl;
+import dao_impl.PresenzaDAOPostgresImpl;
 import dao_impl.TamponiDAOPostgresImpl;
 import daos.LuoghiDAO;
 import daos.TamponiDAO;
 import dbConfig.DBConnection;
 import entity.Luoghi;
+import entity.Presenza;
 import entity.Tamponi;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -73,7 +75,8 @@ public class LocationMenu extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
         jLabel6.setText("LUOGHI POSSIBILI CONTATTI");
 
-        jPanel2.setBackground(new java.awt.Color(0, 51, 153));
+        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel2.setText("Città:");
 
@@ -180,10 +183,10 @@ public class LocationMenu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(72, 72, 72)
                 .addComponent(jLabel6)
-                .addGap(67, 67, 67))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,12 +208,35 @@ public class LocationMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
- 
+        String uniqueID = UUID.randomUUID().toString();
+        String descrizione = "";
+        LuoghiDAO dao = null;
+        DBConnection dbconn = null;
+
+        int response = JOptionPane.showConfirmDialog(this, "Vuoi inserire questi dati all'interno del db?Verrà generato un codice univoco per identificare il luogo", "Conferma", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.YES_OPTION) {
+
+            try {
+                dbconn = DBConnection.getInstance();
+                Connection connection = dbconn.getConnection();
+                dao = new LuoghiDAOPostgresImpl(connection);
+                Luoghi l1 = new Luoghi(descrizione,uniqueID);
+
+                int res = dao.inserisciLuoghi(l1);
+                JOptionPane.showMessageDialog(this, "L'id associato a"+descrizione+"è"+uniqueID);
+                System.out.println(res);
+            } catch (SQLException ex) {
+                Logger.getLogger(LocationMenu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (response == JOptionPane.NO_OPTION || response == JOptionPane.CLOSED_OPTION) {
+            System.out.println("UI.ContactMenu.jButton2ActionPerformed()-> no insert done ");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_formComponentShown
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -256,7 +282,7 @@ public class LocationMenu extends javax.swing.JFrame {
             System.out.println(via);
         }
     }//GEN-LAST:event_jTextField1ActionPerformed
-           
+
     /**
      * @param args the command line arguments
      */

@@ -66,6 +66,7 @@ UI\VisualizeData$1.class
 UI\PresenzaMenu.class
 UI\TamponiMenu.class
 UI\InsertMenu$1.class
+dao_impl\PresenzaDAOPostgresImpl.class
 UI\TamponiMenu$9.class
 dao_impl\PersonaDAOPostgresImpl.class
 UI\GeneratoreCodFiscale$7.class
@@ -81,6 +82,7 @@ UI\TamponiMenu$3.class
 UI\TamponiMenu$11.class
 UI\MainMenu$3.class
 daos\PresenzaDAO.class
+UI\PresenzaMenu$7.class
 daos\ResidenzaDAO.class
 UI\GeneratoreCodFiscale$3.class
 UI\LocationMenu$7.class

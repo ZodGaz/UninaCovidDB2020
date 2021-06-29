@@ -262,11 +262,14 @@ public class PresenzaMenu extends javax.swing.JFrame {
 //Get values from your spinners
             String HOUR = jSpinner1.getValue().toString();
             String MIN = jSpinner2.getValue().toString();
+            String HOUREND = jSpinner5.getValue().toString();
+            String MINEND = jSpinner6.getValue().toString();
 
 //Create a date 
             Date parsed = format.parse(HOUR + ":" + MIN);
             Time sql = new java.sql.Time(parsed.getTime());
-
+            Date parsedEnd = format.parse(HOUREND + ":" + MINEND);
+            Time sqlEnd = new java.sql.Time(parsedEnd.getTime());
 //Insert your dateE
             System.out.println(sql);
 
@@ -280,7 +283,7 @@ public class PresenzaMenu extends javax.swing.JFrame {
                 dbconn = DBConnection.getInstance();
                 Connection connection = dbconn.getConnection();
                 dao = new PresenzaDAOPostgresImpl(connection);
-                Presenza p1 = new Presenza(jDateChooser1.getDate(), sql, sql, (String) jComboBox1.getSelectedItem(), uniqueID);
+                Presenza p1 = new Presenza(jDateChooser1.getDate(), sql, sqlEnd, (String) jComboBox1.getSelectedItem(), uniqueID);
 
                 int res = dao.inserisciPresenza(p1);
                 System.out.println(res);

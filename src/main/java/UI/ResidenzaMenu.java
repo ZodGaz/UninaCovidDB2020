@@ -321,9 +321,6 @@ public class ResidenzaMenu extends javax.swing.JFrame {
                     Residenza d1 = new Residenza(via, citta, civico, (String) jComboBox1.getSelectedItem(), cap);
                     int res = dao.updateResidenza(d1);
                     System.out.println(res);
-//                    List<Residenza> lista = dao.getAllResidenza();
-//                    for (Residenza pp : lista) {
-//                        System.out.println(pp.toString());
 
                 } catch (SQLException ex) {
                     Logger.getLogger(ResidenzaMenu.class.getName()).log(Level.SEVERE, null, ex);
