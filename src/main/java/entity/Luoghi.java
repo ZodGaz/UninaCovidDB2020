@@ -5,58 +5,22 @@
  */
 package entity;
 
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Date;
 
 /**
  *
  * @author Radiu
  */
-public class Luoghi { 
-    
-    private java.util.Date data;
-    private String orainizio;        
-    private String orafine;    
-    private String cf_c;
-    private String IDlocation;
+public class Luoghi {
+
     private String descrizione;
 
-    public Date getData() {
-        return data;
-    }
+    private String IDlocation;
 
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public String getOrainizio() {
-        return orainizio;
-    }
-
-    public void setOrainizio(String orainizio) {
-        this.orainizio = orainizio;
-    }
-
-    public String getOrafine() {
-        return orafine;
-    }
-
-    public void setOrafine(String orafine) {
-        this.orafine = orafine;
-    }
-
-    public String getCf_c() {
-        return cf_c;
-    }
-
-    public void setCf_c(String cf_c) {
-        this.cf_c = cf_c;
-    }
-
-    public String getIDlocation() {
-        return IDlocation;
-    }
-
-    public void setIDlocation(String IDlocation) {
+    public Luoghi(String descrizione, String IDlocation) {
+        this.descrizione = descrizione;
         this.IDlocation = IDlocation;
     }
 
@@ -68,17 +32,18 @@ public class Luoghi {
         this.descrizione = descrizione;
     }
 
+    public String getIDlocation() {
+        return IDlocation;
+    }
+
+    public void setIDlocation(String IDlocation) {
+        this.IDlocation = IDlocation;
+    }
+
     @Override
     public String toString() {
-        return "Luoghi{" + "data=" + data + ", orainizio=" + orainizio + ", orafine=" + orafine + ", cf_c=" + cf_c + ", IDlocation=" + IDlocation + ", descrizione=" + descrizione + '}';
+        return "Luoghi{" + "descrizione=" + descrizione + ", IDlocation=" + IDlocation + '}';
     }
 
     
-
-  
-
-
-
-
 }
-

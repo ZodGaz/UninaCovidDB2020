@@ -309,7 +309,7 @@ public class TamponiMenu extends javax.swing.JFrame {
                     Logger.getLogger(ResidenzaMenu.class.getName()).log(Level.SEVERE, null, ex);
                 }
                    } else if (response == JOptionPane.NO_OPTION || response == JOptionPane.CLOSED_OPTION) {
-                            System.out.println("UI.ResidenzaMenu.jButton2ActionPerformed()-> no insert done ");
+                            System.out.println("UI.TamponiMenu.jButton1ActionPerformed()-> no insert done ");
                    }
         
 

@@ -1,5 +1,8 @@
+C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\PresenzaMenu.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\VisualizeData.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\entity\Persona.java
+C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\daos\PresenzaDAO.java
+C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\entity\Presenza.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\entity\Residenza.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\Controllo\Codice.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\dao_impl\ResidenzaDAOPostgresImpl.java
@@ -9,13 +12,13 @@ C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\j
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\entity\Luoghi.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\InsertMenu.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\Anagrafica\Cognome.java
+C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\LocationMenu.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\ResidenzaMenu.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\daos\LuoghiDAO.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\dao_impl\TamponiDAOPostgresImpl.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\Loginn.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\CF.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\GeneratoreCodFiscale.java
-C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\ContattiMenu.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\daos\TamponiDAO.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\app\Main.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\dbConfig\DBuilder.java

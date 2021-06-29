@@ -15,12 +15,6 @@ import java.util.List;
  */
 public interface LuoghiDAO {
     public List<Luoghi> getAllLuoghi() throws SQLException;
-    public List<Luoghi> getLuoghiaByOraInizio(String orafine) throws SQLException;
-    public List<Luoghi> getLuoghiByOraFine(String orainizio) throws SQLException;
-    public List<Luoghi> getLuoghiByIdLocation(String IDlocation) throws SQLException;
-    public List<Luoghi> getLuoghiBycf_c(String cf_c) throws SQLException;
-//    public List<Luoghi> getLuoghiByDescrizio(String descrizione) throws SQLException;
-//    public List<Luoghi> getLuoghiByPK()throws SQLException;
 
     public int inserisciLuoghi(Luoghi luoghi) throws SQLException;
 

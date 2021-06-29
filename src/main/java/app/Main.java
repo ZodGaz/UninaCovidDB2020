@@ -55,6 +55,7 @@ public class Main {
             builder.createTableLuoghi();
             builder.createTableTamponi();
             builder.createTableResidenza();
+            builder.createTablePresenza();
             builder.createDomainEsito();
             builder.createDomainGender();
             builder.createDomainTipologia();
@@ -68,7 +69,7 @@ public class Main {
             
                             SimpleDateFormat c = new SimpleDateFormat("yyyy/MM/dd");
 
-//           Persona p1  =  new Persona("FFFSRT57T64Y008N", "Pippo", "Baudo", "p.budo@studenti.unina.it","M","NA","MaranodiNapoli","",c.parse("1999/10/12"));
+           Persona p1  =  new Persona("FFFSRT57T64Y008N", "Pippo", "Baudo", "p.budo@studenti.unina.it","M","NA","MaranodiNapoli","",c.parse("1999/10/12"));
 //           Persona p2  =  new Persona("WTFMBG81E29L231N", "Pino", "Silvestre", "p.silvestre@studenti.unina.it","F","NA","MugnanodiNapoli","",c.parse("1998/01/12"));
 //           Persona p3  =  new Persona("GDVSXL61C01B620S", "Lino", "Musso", "l.musso@studenti.unina.it","M","NA","Pompei","", c.parse("1987/03/14"));
 //            int res =  dao.inserisciPersona(p1);
