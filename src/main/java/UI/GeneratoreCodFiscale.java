@@ -386,86 +386,94 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
         DBConnection dbconn = null;
 
         int i;
-        String nome1, cogn, cBG, dt, luogo, prov, email = jTextField5.getText();
+        String nome1, cogn, cBG, dt, luogo, prov, email = jTextField5.getText(), phoneNumber = jTextField6.getText();
         Nome nome = new Nome();
         Cognome cognome = new Cognome();
         DataN datan = new DataN();
         Codice codice = new Codice();
         String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-
+        String regexPhone = "^((00|\\+)39[\\. ]??)??3\\d{2}[\\. ]??\\d{6,7}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
+        Pattern patternPhone = Pattern.compile(regexPhone);
+        Matcher matcherPhone = patternPhone.matcher(phoneNumber);
         if (matcher.matches() == false) {
             jTextField5.setText("Email non valida!!");
             email = null;
+        } else if (matcherPhone.matches() == false) {
+            jTextField6.setText("Numero non valido!");
+            phoneNumber = null;
         } else {
 
-        }
+            String labelSex, codifica, cons, voc;
+            //        Checkbox cB;
 
-        String labelSex, codifica, cons, voc;
-        //        Checkbox cB;
+            nome1 = jTextField1.getText();
+            cogn = jTextField2.getText();
+            //        cB=cbg.getSelectedCheckbox();labelSex=cB.getLabel();
+            labelSex = sex;
 
-        nome1 = jTextField1.getText();
-        cogn = jTextField2.getText();
-        //        cB=cbg.getSelectedCheckbox();labelSex=cB.getLabel();
-        labelSex = sex;
-        System.out.println(labelSex);
-        dt = jLabel8.getText();
-        luogo = jTextField3.getText();
-        prov = jTextField4.getText();
-        DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
-        java.util.Date utilDate = new java.util.Date();
-        utilDate = jDateChooser1.getDate();
-        String s = fmt.format(jDateChooser1.getDate());
-        jLabel8.setText(s);
-        System.out.println(s);
+            System.out.println(labelSex);
+            dt = jLabel8.getText();
+            luogo = jTextField3.getText();
+            prov = jTextField4.getText();
+            DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+            java.util.Date utilDate = new java.util.Date();
+            utilDate = jDateChooser1.getDate();
+            String s = fmt.format(jDateChooser1.getDate());
 
-        if (nome1.equals("") | cogn.equals("") | dt.equals("") | luogo.equals("") | prov.equals("")) {
+            jLabel8.setText(s);
 
-        } else {
+            System.out.println(s);
 
-            codifica = "";
-            codifica += cognome.calcolaCognome(cogn);
-            codifica += nome.calcolaNome(nome1);
-            System.out.println(codifica);
-            codifica += datan.calcolaData(dt, labelSex);
-            System.out.println(codifica);
-            String campi[] = {"", "", ""};
-            String cartella = "C:\\Users\\Radiu\\OneDrive\\Documenti\\NetBeansProjects\\Inserimento\\";
-            String nomeFile = "Codici_catastali";
-            String estensione = ".txt";
-            String file = cartella + nomeFile + estensione;
-            new LeggiFileTXT(campi, luogo, prov, file);
-            if (campi[0].equals("")) {
-                System.err.println("Luogo non esistente !!");
+            if (nome1.equals(
+                    "") | cogn.equals("") | dt.equals("") | luogo.equals("") | prov.equals("")) {
+
             } else {
-                codifica += campi[0];
-            }
-            System.out.println(codifica);
-            codifica += codice.codiceControllo(codifica);
-            System.out.println(codifica);
-            jLabel9.setText(codifica);
 
-            int response = JOptionPane.showConfirmDialog(this, "Vuoi inserire questi dati all'interno del db?", "Conferma", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (response == JOptionPane.YES_OPTION) {
-                try {
-                    dbconn = DBConnection.getInstance();
-                    Connection connection = dbconn.getConnection();
-                    dao = new PersonaDAOPostgresImpl(connection);
-                    SimpleDateFormat c = new SimpleDateFormat("dd/MM/yyyy");
-                    Persona p1 = new Persona(codifica, nome1, cogn, email, labelSex, prov, luogo, "", c.parse(dt));
-                    int res = dao.inserisciPersona(p1);
-                    System.out.println(res);
-                    List<Persona> lista = dao.getPersonaByNome("P%");
-                    for (Persona pp : lista) {
-                        System.out.println(pp.toString());
-                    }
-
-                } catch (SQLException | ParseException ex) {
-                    Logger.getLogger(GeneratoreCodFiscale.class.getName()).log(Level.SEVERE, null, ex);
+                codifica = "";
+                codifica += cognome.calcolaCognome(cogn);
+                codifica += nome.calcolaNome(nome1);
+                System.out.println(codifica);
+                codifica += datan.calcolaData(dt, labelSex);
+                System.out.println(codifica);
+                String campi[] = {"", "", ""};
+                String cartella = "C:\\Users\\Radiu\\OneDrive\\Documenti\\NetBeansProjects\\Inserimento\\";
+                String nomeFile = "Codici_catastali";
+                String estensione = ".txt";
+                String file = cartella + nomeFile + estensione;
+                new LeggiFileTXT(campi, luogo, prov, file);
+                if (campi[0].equals("")) {
+                    System.err.println("Luogo non esistente !!");
+                } else {
+                    codifica += campi[0];
                 }
-            } else if (response == JOptionPane.NO_OPTION || response == JOptionPane.CLOSED_OPTION) {
-                            System.out.println("UI.GeneratoreCodFiscale.jButton2ActionPerformed()-> no insert done ");
+                System.out.println(codifica);
+                codifica += codice.codiceControllo(codifica);
+                System.out.println(codifica);
+                jLabel9.setText(codifica);
+
+                int response = JOptionPane.showConfirmDialog(this, "Vuoi inserire questi dati all'interno del db?", "Conferma", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (response == JOptionPane.YES_OPTION) {
+                    try {
+                        dbconn = DBConnection.getInstance();
+                        Connection connection = dbconn.getConnection();
+                        dao = new PersonaDAOPostgresImpl(connection);
+                        SimpleDateFormat c = new SimpleDateFormat("dd/MM/yyyy");
+                        Persona p1 = new Persona(codifica, nome1, cogn, email, labelSex, prov, luogo, phoneNumber, c.parse(dt));
+                        int res = dao.inserisciPersona(p1);
+                        System.out.println(res);
+                        List<Persona> lista = dao.getPersonaByNome("P%");
+                        for (Persona pp : lista) {
+                            System.out.println(pp.toString());
+                        }
+
+                    } catch (SQLException | ParseException ex) {
+                        Logger.getLogger(GeneratoreCodFiscale.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (response == JOptionPane.NO_OPTION || response == JOptionPane.CLOSED_OPTION) {
+                    System.out.println("UI.GeneratoreCodFiscale.jButton2ActionPerformed()-> no insert done ");
+                }
             }
         }
 
@@ -486,6 +494,7 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
+        String phoneNumber = jTextField6.getText();
     }//GEN-LAST:event_jTextField6ActionPerformed
 
     /**
@@ -502,16 +511,21 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GeneratoreCodFiscale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GeneratoreCodFiscale.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GeneratoreCodFiscale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GeneratoreCodFiscale.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GeneratoreCodFiscale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GeneratoreCodFiscale.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GeneratoreCodFiscale.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GeneratoreCodFiscale.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

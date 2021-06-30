@@ -27,6 +27,10 @@ public class Residenza {
              
      }
 
+    public Residenza(String via) {
+        this.via = via; //To change body of generated methods, choose Tools | Templates.
+    }
+
     public String getCitta() {
         return citta;
     }

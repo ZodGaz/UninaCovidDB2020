@@ -13,18 +13,21 @@ import java.util.Date;
  * @author Radiu
  */
 public class Presenza {
+
     private java.util.Date data;
     private Time orainizio;
     private Time orafine;
     private String cf_c;
     private String IDlocation;
+    private String timeRange;
 
-    public Presenza(Date data, Time orainizio, Time orafine, String cf_c, String IDlocation) {
+    public Presenza(Date data, Time orainizio, Time orafine, String cf_c, String IDlocation, String timeRange) {
         this.data = data;
         this.orainizio = orainizio;
         this.orafine = orafine;
         this.cf_c = cf_c;
         this.IDlocation = IDlocation;
+        this.timeRange = timeRange;
     }
 
     public Date getData() {
@@ -67,11 +70,18 @@ public class Presenza {
         this.IDlocation = IDlocation;
     }
 
+    public String getTimeRange() {
+        return timeRange;
+    }
+
+    public void setTimeRange(String timeRange) {
+        this.timeRange = timeRange;
+    }
+
     @Override
     public String toString() {
-        return "Presenza{" + "data=" + data + ", orainizio=" + orainizio + ", orafine=" + orafine + ", cf_c=" + cf_c + ", IDlocation=" + IDlocation + '}';
+        return "Presenza{" + "data=" + data + ", orainizio=" + orainizio + ", orafine=" + orafine + ", cf_c=" + cf_c + ", IDlocation=" + IDlocation + ", timeRange=" + timeRange + '}';
     }
-    
+
+   
 }
-
-

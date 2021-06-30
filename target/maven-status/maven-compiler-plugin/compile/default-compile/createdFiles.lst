@@ -10,6 +10,7 @@ UI\Loginn$2.class
 UI\ResidenzaMenu$8.class
 daos\TamponiDAO.class
 UI\GeneratoreCodFiscale.class
+UI\VisualizeData$8.class
 UI\PresenzaMenu$6.class
 UI\LeggiFileTXT.class
 UI\MainMenu$1.class
@@ -61,6 +62,7 @@ UI\TamponiMenu$4.class
 UI\Loginn$3.class
 UI\GeneratoreCodFiscale$1.class
 UI\ResidenzaMenu.class
+UI\VisualizeData$7.class
 UI\MainMenu.class
 UI\VisualizeData$1.class
 UI\PresenzaMenu.class
@@ -80,6 +82,7 @@ UI\LocationMenu$8.class
 exceptions\ConnectionException.class
 UI\TamponiMenu$3.class
 UI\TamponiMenu$11.class
+UI\VisualizeData$5.class
 UI\MainMenu$3.class
 daos\PresenzaDAO.class
 UI\PresenzaMenu$7.class
@@ -94,7 +97,9 @@ UI\ResidenzaMenu$1.class
 UI\PresenzaMenu$2.class
 UI\Controllo\Codice.class
 UI\GeneratoreCodFiscale$2.class
+UI\PresenzaMenu$8.class
 UI\CF.class
+UI\VisualizeData$6.class
 UI\GeneratoreCodFiscale$9.class
 UI\Loginn$1.class
 UI\TamponiMenu$10.class

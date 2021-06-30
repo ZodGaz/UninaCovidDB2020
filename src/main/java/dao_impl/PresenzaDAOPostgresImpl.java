@@ -22,7 +22,7 @@ public class PresenzaDAOPostgresImpl implements PresenzaDAO{
 
     public PresenzaDAOPostgresImpl(Connection connection) throws SQLException {
         this.connection = connection;
-        InserisciPresenzaPS = connection.prepareStatement("INSERT INTO presenza VALUES (?, ?, ?, ?, ?)");
+        InserisciPresenzaPS = connection.prepareStatement("INSERT INTO presenza VALUES (?, ?, ?, ?, ?, ?::tsrange)");
     }
     @Override
     public List<Presenza> getAllPresenza() throws SQLException {
@@ -56,6 +56,7 @@ public class PresenzaDAOPostgresImpl implements PresenzaDAO{
         InserisciPresenzaPS.setTime(3, new java.sql.Time(presenza.getOrafine().getTime()));
         InserisciPresenzaPS.setString(4, presenza.getCf_c());
         InserisciPresenzaPS.setString(5, presenza.getIDlocation());
+        InserisciPresenzaPS.setString(6, presenza.getTimeRange());
         System.out.println(InserisciPresenzaPS);
         int row = InserisciPresenzaPS.executeUpdate();
         return row;

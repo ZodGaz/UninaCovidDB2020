@@ -37,18 +37,34 @@ import java.text.SimpleDateFormat;
 public class TamponiDAOPostgresImpl implements TamponiDAO {
  
     private Connection connection;
-    private PreparedStatement getTamponiByTipologiaPS, inserisciTamponiPS;
+    public PreparedStatement getTamponiByTipologiaPS, inserisciTamponiPS,getAllTamponiPS;
 
     public TamponiDAOPostgresImpl(Connection connection) throws SQLException {
         this.connection=connection;
+        getAllTamponiPS = connection.prepareStatement("SELECT * FROM tamponi");
         getTamponiByTipologiaPS = connection.prepareStatement("SELECT * FROM tamponi where tipologia like ?");
         inserisciTamponiPS = connection.prepareStatement("INSERT INTO tamponi VALUES (?, ?, ?, ?, ?)");
     }
 
 
     @Override
-    public List<Tamponi> getAllTamponi() {
-        return null;
+    public List<Tamponi> getAllTamponi() throws SQLException {
+//            getTamponiByTipologiaPS.setString(1, tipologia);
+        ResultSet rs= getAllTamponiPS.executeQuery();
+        List<Tamponi> lista = new ArrayList<Tamponi>();
+        while(rs.next())
+        {
+            Tamponi t = new Tamponi
+           (rs.getString("tipologia")); //rs.getString(1)
+            t.setEsito(rs.getString("esito"));
+            t.setDataTampone(rs.getDate("dataTampone"));
+            t.setCf_paziente(rs.getString("cf_paziente"));
+            t.setCod_paziente(rs.getString("cod_paziente"));
+            lista.add(t);
+        }
+        rs.close();
+        return lista;
+    
     }
 
    

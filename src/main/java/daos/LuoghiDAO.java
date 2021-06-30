@@ -15,6 +15,8 @@ import java.util.List;
  */
 public interface LuoghiDAO {
     public List<Luoghi> getAllLuoghi() throws SQLException;
+    public List<Luoghi> getIDLocation() throws SQLException;
+
 
     public int inserisciLuoghi(Luoghi luoghi) throws SQLException;
 

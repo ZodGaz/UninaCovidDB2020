@@ -20,12 +20,13 @@ import java.util.List;
 public class LuoghiDAOPostgresImpl implements LuoghiDAO {
 
     private Connection connection;
-    private PreparedStatement InserisciLuoghiPS;
+    public PreparedStatement InserisciLuoghiPS,getIDLocationPS;
 
     //blablabla aggiungere altri prepared statements 
     public LuoghiDAOPostgresImpl(Connection connection) throws SQLException {
         this.connection = connection;
         InserisciLuoghiPS = connection.prepareStatement("INSERT INTO luoghi VALUES (?, ?)");
+        getIDLocationPS = connection.prepareStatement("SELECT idlocation FROM luoghi");;
     }
 
     @Override
@@ -48,6 +49,11 @@ public class LuoghiDAOPostgresImpl implements LuoghiDAO {
 
     @Override
     public int cancellaLuoghi(Luoghi luoghi) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Luoghi> getIDLocation() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

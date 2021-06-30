@@ -5,8 +5,7 @@
  */
 package dao_impl;
 
-import daos.*;
-import entity.Persona;
+import daos.ResidenzaDAO;
 import entity.Residenza;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,12 +21,13 @@ import java.util.List;
 public class ResidenzaDAOPostgresImpl implements ResidenzaDAO {
 
     private Connection connection;
-    public PreparedStatement inserisciResidenzaPS, getResidenzaPS, updateResidenzaPS;
+    public PreparedStatement inserisciResidenzaPS, getResidenzaPS, updateResidenzaPS, getAllResidenzaPS;
 
     //blablabla aggiungere altri prepared statements 
     public ResidenzaDAOPostgresImpl(Connection connection) throws SQLException {
         this.connection = connection;
         getResidenzaPS = connection.prepareStatement("SELECT cf_r FROM residenza");
+        getAllResidenzaPS = connection.prepareStatement("SELECT * FROM residenza");
         inserisciResidenzaPS = connection.prepareStatement("INSERT INTO residenza VALUES (?, ?, ?, ?, ?)");
         updateResidenzaPS = connection.prepareStatement("UPDATE residenza SET via = ?,citta = ?,civico = ?,cap = ? WHERE cf_r = ?");
 
@@ -35,7 +35,24 @@ public class ResidenzaDAOPostgresImpl implements ResidenzaDAO {
 
     @Override
     public List<Residenza> getAllResidenza() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //To change body of generated methods, choose Tools | Templates.
+
+        ResultSet rs = getAllResidenzaPS.executeQuery();
+        List<Residenza> lista = new ArrayList<Residenza>();
+        while (rs.next()) 
+        {
+            Residenza p = new Residenza
+           (rs.getString("cf")); //rs.getString(1)
+            p.setVia(rs.getString("nome"));
+            p.setCitta(rs.getString("cognome"));
+            p.setCivico(rs.getString("email"));
+            p.setCf_r(rs.getString("sesso"));
+            p.setCap(rs.getString("provinciaN"));
+            lista.add(p);
+        }
+        rs.close();
+        return lista;
+
     }
 
     @Override

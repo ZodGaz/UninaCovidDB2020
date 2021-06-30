@@ -198,8 +198,8 @@ public class DBuilder {
                             + "esito VARCHAR(20) NOT NULL,"
                             + "dataTampone date NOT NULL,"
                             + "cf_paziente VARCHAR(16) NOT NULL,"
-                            + "cod_paziente VARCHAR(255) NOT NULL,"
-                            + "CONSTRAINT pk_tamponi PRIMARY KEY (cod_paziente, dataTampone),"
+                            + "cod_test VARCHAR(255) NOT NULL,"
+                            + "CONSTRAINT pk_tamponi PRIMARY KEY (cf_paziente,dataTampone,tipologia),"
                             + "CONSTRAINT fk_tamponi FOREIGN KEY (cf_paziente)"
                             + "REFERENCES public.Persona (cf) MATCH SIMPLE "
                             + "ON UPDATE CASCADE "
@@ -268,10 +268,11 @@ public class DBuilder {
                 if (!tableExists("public.Presenza")) {
                     String sql = "CREATE TABLE public.Presenza("
                             + "data date NOT NULL,"
-                            + "oraInizio time with time zone NOT NULL,"
-                            + "oraFine time with time zone NOT NULL,"
+                            + "oraInizio time NOT NULL,"
+                            + "oraFine time NOT NULL,"
                             + "cf_c VARCHAR(16) NOT NULL,"
                             + "IDlocationP VARCHAR(255),"
+                            + "timerange tsrange,"
                             + "CONSTRAINT pk_presence PRIMARY KEY (data, oraInizio, oraFine, IDlocationP, cf_c),"
                             + "CONSTRAINT FK_idloc FOREIGN KEY (IDlocationP) "
                             + "REFERENCES public.Luoghi (IDlocation) MATCH SIMPLE "
@@ -280,7 +281,9 @@ public class DBuilder {
                             + "CONSTRAINT FK_luoghi FOREIGN KEY (cf_c) "
                             + "REFERENCES public.Persona (cf) MATCH SIMPLE "
                             + "ON UPDATE CASCADE "
-                            + "ON DELETE CASCADE) ";
+                            + "ON DELETE CASCADE, "
+                            + "CONSTRAINT check_time CHECK (orafine > orainizio)"
+                            + ")";
                     result = st.executeUpdate(sql);
                     st.close();
 
