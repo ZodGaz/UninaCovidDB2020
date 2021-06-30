@@ -6,9 +6,11 @@
 package UI;
 
 import dao_impl.PersonaDAOPostgresImpl;
+import dao_impl.PresenzaDAOPostgresImpl;
 import dao_impl.ResidenzaDAOPostgresImpl;
 import dao_impl.TamponiDAOPostgresImpl;
 import daos.PersonaDAO;
+import daos.PresenzaDAO;
 import daos.ResidenzaDAO;
 import daos.TamponiDAO;
 import dbConfig.DBConnection;
@@ -20,6 +22,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
@@ -102,7 +105,7 @@ public class VisualizeData extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton4.setText("Luoghi a rischio");
+        jToggleButton4.setText("Persone a rischio");
         jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton4ActionPerformed(evt);
@@ -225,6 +228,24 @@ public class VisualizeData extends javax.swing.JFrame {
 
     private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
         // TODO add your handling code here:
+       //select p.cf_c ,p.timerange as p,l.timerange as l ,p.timerange && l.timerange as contatto_con_positivo from presenza p left join luoghiarischio l  on l.idlocationp = p.idlocationp 
+        PresenzaDAO dao = null;
+        DBConnection dbconn = null;
+        
+        try {
+            dbconn = DBConnection.getInstance();
+            Connection connection = dbconn.getConnection();
+            PresenzaDAOPostgresImpl ps= new PresenzaDAOPostgresImpl(connection);
+            ResultSet rs = ps.ShowContattiPS.executeQuery();
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));    
+            
+            JOptionPane.showMessageDialog(this, "ATTENZIONE:Sono stati notificati gli utenti risultati a contatto con un'individuo positivo accertato");
+
+            //use rs2xml
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VisualizeData.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     private void jToggleButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton5ActionPerformed

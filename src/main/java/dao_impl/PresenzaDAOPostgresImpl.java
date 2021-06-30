@@ -18,11 +18,12 @@ import java.util.List;
  */
 public class PresenzaDAOPostgresImpl implements PresenzaDAO{
  private Connection connection;
-    private PreparedStatement InserisciPresenzaPS;
+    public PreparedStatement InserisciPresenzaPS,ShowContattiPS;
 
     public PresenzaDAOPostgresImpl(Connection connection) throws SQLException {
         this.connection = connection;
         InserisciPresenzaPS = connection.prepareStatement("INSERT INTO presenza VALUES (?, ?, ?, ?, ?, ?::tsrange)");
+        ShowContattiPS = connection.prepareStatement("select p.cf_c ,p.timerange as PRESENTE_IN_DATA ,l.timerange as POSITIVO_PRESENTE_IN_DATA ,p.timerange && l.timerange as contatto_con_positivo from presenza p left join luoghiarischio l on l.idlocationp = p.idlocationp ");
     }
     @Override
     public List<Presenza> getAllPresenza() throws SQLException {

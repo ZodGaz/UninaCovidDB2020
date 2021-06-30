@@ -76,6 +76,7 @@ UI\InsertMenu$4.class
 dao_impl\ResidenzaDAOPostgresImpl.class
 UI\GeneratoreCodFiscale$4.class
 daos\PersonaDAO.class
+UI\InsertMenu$7.class
 UI\LocationMenu$1.class
 UI\ResidenzaMenu$2.class
 UI\LocationMenu$8.class
