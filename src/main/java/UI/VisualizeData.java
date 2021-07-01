@@ -5,23 +5,28 @@
  */
 package UI;
 
+import dao_impl.LuoghiDAOPostgresImpl;
 import dao_impl.PersonaDAOPostgresImpl;
 import dao_impl.PresenzaDAOPostgresImpl;
 import dao_impl.ResidenzaDAOPostgresImpl;
 import dao_impl.TamponiDAOPostgresImpl;
+import daos.LuoghiDAO;
 import daos.PersonaDAO;
 import daos.PresenzaDAO;
 import daos.ResidenzaDAO;
 import daos.TamponiDAO;
 import dbConfig.DBConnection;
 import entity.Persona;
+import java.awt.Panel;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
@@ -32,11 +37,14 @@ import net.proteanit.sql.DbUtils;
  */
 public class VisualizeData extends javax.swing.JFrame {
 
+    JComboBox dateComboBox = new JComboBox();
+
     /**
      * Creates new form VisualizeData
      */
     public VisualizeData() {
         initComponents();
+
     }
 
     /**
@@ -56,8 +64,14 @@ public class VisualizeData extends javax.swing.JFrame {
         jToggleButton3 = new javax.swing.JToggleButton();
         jToggleButton4 = new javax.swing.JToggleButton();
         jToggleButton5 = new javax.swing.JToggleButton();
+        jToggleButton7 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,7 +91,7 @@ public class VisualizeData extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jToggleButton1.setText("Mostra anagrafica");
+        jToggleButton1.setText("Anagrafica");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton1ActionPerformed(evt);
@@ -91,20 +105,22 @@ public class VisualizeData extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton2.setText("Mostra Residenze");
+        jToggleButton2.setText(" Residenze");
         jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton2ActionPerformed(evt);
             }
         });
 
-        jToggleButton3.setText("Mostra Test ");
+        jToggleButton3.setText("Test virus");
         jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton3ActionPerformed(evt);
             }
         });
 
+        jToggleButton4.setBackground(new java.awt.Color(204, 0, 0));
+        jToggleButton4.setForeground(new java.awt.Color(0, 0, 0));
         jToggleButton4.setText("Persone a rischio");
         jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,10 +128,19 @@ public class VisualizeData extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton5.setText("Tabella luoghi");
+        jToggleButton5.setText("Luoghi Inseriti");
         jToggleButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton5ActionPerformed(evt);
+            }
+        });
+
+        jToggleButton7.setBackground(new java.awt.Color(204, 0, 0));
+        jToggleButton7.setForeground(new java.awt.Color(0, 0, 0));
+        jToggleButton7.setText("Luoghi a rischio");
+        jToggleButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton7ActionPerformed(evt);
             }
         });
 
@@ -130,7 +155,8 @@ public class VisualizeData extends javax.swing.JFrame {
                     .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1087, Short.MAX_VALUE)
                 .addContainerGap())
@@ -142,24 +168,25 @@ public class VisualizeData extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jToggleButton1)
-                        .addGap(29, 29, 29)
-                        .addComponent(jToggleButton2)
-                        .addGap(29, 29, 29)
-                        .addComponent(jToggleButton3)
-                        .addGap(26, 26, 26)
-                        .addComponent(jToggleButton4)
-                        .addGap(31, 31, 31)
-                        .addComponent(jToggleButton5)))
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
                 .addContainerGap(14, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jToggleButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jToggleButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jToggleButton3)
+                .addGap(18, 18, 18)
+                .addComponent(jToggleButton5)
+                .addGap(115, 115, 115))
         );
 
         pack();
@@ -169,13 +196,13 @@ public class VisualizeData extends javax.swing.JFrame {
         // TODO add your handling code here:
         PersonaDAO dao = null;
         DBConnection dbconn = null;
-        
+
         try {
             dbconn = DBConnection.getInstance();
             Connection connection = dbconn.getConnection();
-            PersonaDAOPostgresImpl ps= new PersonaDAOPostgresImpl(connection);
+            PersonaDAOPostgresImpl ps = new PersonaDAOPostgresImpl(connection);
             ResultSet rs = ps.getAllPersonaPS.executeQuery();
-            jTable1.setModel(DbUtils.resultSetToTableModel(rs));    
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
             //use rs2xml
 
         } catch (SQLException ex) {
@@ -194,13 +221,13 @@ public class VisualizeData extends javax.swing.JFrame {
         // TODO add your handling code here:
         ResidenzaDAO dao = null;
         DBConnection dbconn = null;
-        
+
         try {
             dbconn = DBConnection.getInstance();
             Connection connection = dbconn.getConnection();
-            ResidenzaDAOPostgresImpl ps= new ResidenzaDAOPostgresImpl(connection);
+            ResidenzaDAOPostgresImpl ps = new ResidenzaDAOPostgresImpl(connection);
             ResultSet rs = ps.getAllResidenzaPS.executeQuery();
-            jTable1.setModel(DbUtils.resultSetToTableModel(rs));    
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
             //use rs2xml
 
         } catch (SQLException ex) {
@@ -210,15 +237,15 @@ public class VisualizeData extends javax.swing.JFrame {
 
     private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
         // TODO add your handling code here:
-         TamponiDAO dao = null;
+        TamponiDAO dao = null;
         DBConnection dbconn = null;
-        
+
         try {
             dbconn = DBConnection.getInstance();
             Connection connection = dbconn.getConnection();
-            TamponiDAOPostgresImpl ps= new TamponiDAOPostgresImpl(connection);
+            TamponiDAOPostgresImpl ps = new TamponiDAOPostgresImpl(connection);
             ResultSet rs = ps.getAllTamponiPS.executeQuery();
-            jTable1.setModel(DbUtils.resultSetToTableModel(rs));    
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
             //use rs2xml
 
         } catch (SQLException ex) {
@@ -228,29 +255,84 @@ public class VisualizeData extends javax.swing.JFrame {
 
     private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
         // TODO add your handling code here:
-       //select p.cf_c ,p.timerange as p,l.timerange as l ,p.timerange && l.timerange as contatto_con_positivo from presenza p left join luoghiarischio l  on l.idlocationp = p.idlocationp 
         PresenzaDAO dao = null;
         DBConnection dbconn = null;
-        
+        SimpleDateFormat c = new SimpleDateFormat("yyyy-MM-dd");
+        //dateComboBox.setSelectedIndex(1);
+
         try {
             dbconn = DBConnection.getInstance();
             Connection connection = dbconn.getConnection();
-            PresenzaDAOPostgresImpl ps= new PresenzaDAOPostgresImpl(connection);
+            PresenzaDAOPostgresImpl ps = new PresenzaDAOPostgresImpl(connection);
+            JOptionPane.showMessageDialog(null, dateComboBox, "Scegliere per quale data visualizzare i contagi", JOptionPane.QUESTION_MESSAGE);
+            System.out.println((String) dateComboBox.getSelectedItem());
+            ps.ShowContattiPS.setString(1, (String) dateComboBox.getSelectedItem());
             ResultSet rs = ps.ShowContattiPS.executeQuery();
-            jTable1.setModel(DbUtils.resultSetToTableModel(rs));    
-            
+            System.out.println(rs);
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+
             JOptionPane.showMessageDialog(this, "ATTENZIONE:Sono stati notificati gli utenti risultati a contatto con un'individuo positivo accertato");
 
             //use rs2xml
-
         } catch (SQLException ex) {
             Logger.getLogger(VisualizeData.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }//GEN-LAST:event_jToggleButton4ActionPerformed
 
     private void jToggleButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton5ActionPerformed
         // TODO add your handling code here:
+        LuoghiDAO dao = null;
+        DBConnection dbconn = null;
+
+        try {
+            dbconn = DBConnection.getInstance();
+            Connection connection = dbconn.getConnection();
+            LuoghiDAOPostgresImpl ps = new LuoghiDAOPostgresImpl(connection);
+            ResultSet rs = ps.getAllLuoghiPS.executeQuery();
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VisualizeData.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jToggleButton5ActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        // TODO add your handling code here:
+        PresenzaDAO dao = null;
+        DBConnection dbconn = null;
+        SimpleDateFormat c = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            dbconn = DBConnection.getInstance();
+            Connection connection = dbconn.getConnection();
+            PresenzaDAOPostgresImpl ps = new PresenzaDAOPostgresImpl(connection);
+            ResultSet rs = ps.getDataPS.executeQuery();
+            while (rs.next()) {
+                dateComboBox.addItem(rs.getString("data"));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VisualizeData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formComponentShown
+
+    private void jToggleButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton7ActionPerformed
+        // TODO add your handling code here:
+        LuoghiDAO dao = null;
+        DBConnection dbconn = null;
+        SimpleDateFormat c = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            dbconn = DBConnection.getInstance();
+            Connection connection = dbconn.getConnection();
+            LuoghiDAOPostgresImpl ps = new LuoghiDAOPostgresImpl(connection);
+            ResultSet rs = ps.ShowLuoghiRischioPS.executeQuery();
+             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VisualizeData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jToggleButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -296,5 +378,6 @@ public class VisualizeData extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JToggleButton jToggleButton5;
+    private javax.swing.JToggleButton jToggleButton7;
     // End of variables declaration//GEN-END:variables
 }

@@ -130,11 +130,11 @@ public class DBuilder {
                             + "(cf VARCHAR(16) not NULL, "
                             + " nome VARCHAR(255), "
                             + " cognome VARCHAR(255), "
-                            + " email VARCHAR(255), "
+                            + " email VARCHAR(255) UNIQUE, "
                             + " sesso VARCHAR(255),"
                             + " provinciaN VARCHAR(2),"
                             + " cittaN  VARCHAR(255),"
-                            + "numeroTel VARCHAR(15),"
+                            + "numeroTel VARCHAR(15) UNIQUE,"
                             + "dataN date not NULL,"
                             + "  PRIMARY KEY ( cf ) )";
 
@@ -154,7 +154,6 @@ public class DBuilder {
         return result;
     }
 
-    /*CODIFICARE CHIAVI ESTERNE E PRIMARIE + ALTRE CLASSI + enumerazioni*/
     public int createTableLuoghi() throws ConnectionException {
 
         int result = -1;
@@ -235,7 +234,7 @@ public class DBuilder {
                             + "civico VARCHAR(255) NOT NULL,"
                             + "cf_r VARCHAR(16) NOT NULL,"
                             + "cap VARCHAR(16) NOT NULL,"
-                            + "CONSTRAINT pk_residenza PRIMARY KEY (via, citta, civico, cap),"
+                            + "CONSTRAINT pk_residenza PRIMARY KEY (cf_r),"
                             + "CONSTRAINT fk_residenza FOREIGN KEY (cf_r)"
                             + "REFERENCES public.Persona (cf) MATCH SIMPLE "
                             + "ON UPDATE CASCADE "
@@ -301,17 +300,38 @@ public class DBuilder {
         return result;
     }
 
-}
-//creare trigger builder 
-/*CREATE FUNCTION residenza_import() RETURNS trigger AS $residenza_import$
-    BEGIN
-        IF NEW.cf IS NOT NULL THEN
-		INSERT INTO residenza VALUES ('to_define','to_define','to_define',NEW.cf,'to_define');
-		END IF;
-		 RETURN NULL;
-    END;
-	
-$residenza_import$ LANGUAGE plpgsql;
+    public int createTriggerResidenza() throws ConnectionException {
 
- CREATE TRIGGER residenza_import AFTER INSERT OR UPDATE ON persona
- FOR EACH ROW EXECUTE PROCEDURE residenza_import();*/
+        int result = -1;
+
+        if (connectionExists()) {
+            try {
+                Statement st = connection.createStatement();
+
+                String sql = "CREATE FUNCTION residenza_import() RETURNS trigger AS $residenza_import$\n"
+                        + "BEGIN"
+                        + "IF NEW.cf IS NOT NULL THEN"
+                        + "INSERT INTO residenza VALUES ('to_define','to_define','to_define',NEW.cf,'to_define');"
+                        + "END IF;"
+                        + "RETURN NULL;"
+                        + "END;"
+                        + "$residenza_import$ LANGUAGE plpgsql;"
+                        + " CREATE TRIGGER residenza_import AFTER INSERT OR UPDATE ON persona"
+                        + " FOR EACH ROW EXECUTE PROCEDURE residenza_import();";
+
+                result = st.executeUpdate(sql);
+                st.close();
+
+            } catch (SQLException ex) {
+                System.out.println("SQL Exception in creation trigger/func residenza : " + ex);
+            }
+
+        } else {
+            throw new ConnectionException("A connection must exist!");
+        }
+
+        return result;
+    }
+
+}
+

@@ -16,15 +16,26 @@ import java.util.List;
  *
  * @author Radiu
  */
-public class PresenzaDAOPostgresImpl implements PresenzaDAO{
- private Connection connection;
-    public PreparedStatement InserisciPresenzaPS,ShowContattiPS;
+public class PresenzaDAOPostgresImpl implements PresenzaDAO {
+
+    private Connection connection;
+    public PreparedStatement InserisciPresenzaPS, ShowContattiPS, getDataPS;
 
     public PresenzaDAOPostgresImpl(Connection connection) throws SQLException {
         this.connection = connection;
         InserisciPresenzaPS = connection.prepareStatement("INSERT INTO presenza VALUES (?, ?, ?, ?, ?, ?::tsrange)");
-        ShowContattiPS = connection.prepareStatement("select p.cf_c ,p.timerange as PRESENTE_IN_DATA ,l.timerange as POSITIVO_PRESENTE_IN_DATA ,p.timerange && l.timerange as contatto_con_positivo from presenza p left join luoghiarischio l on l.idlocationp = p.idlocationp ");
+//      ShowContattiPS = connection.prepareStatement("select p.cf_c ,p.timerange as PRESENTE_IN_DATA ,l.timerange as POSITIVO_PRESENTE_IN_DATA ,p.timerange && l.timerange as contatto_con_positivo from presenza p left join luoghiarischio l on l.idlocationp = p.idlocationp ");
+        ShowContattiPS = connection.prepareStatement("select p.cf_c ,p.timerange as PRESENTE_IN_DATA ,l.timerange as POSITIVO_PRESENTE_IN_DATA ,p.timerange && l.timerange as contatto_con_positivo from presenza p left join luoghiarischio l on l.idlocationp = p.idlocationp where p.timerange && l.timerange = true \n"
+                + "and p.cf_c != l.cf_c and p.\"data\" = ?::DATE");
+        getDataPS = connection.prepareStatement("SELECT distinct \"data\" from presenza");
+
     }
+
+    @Override
+    public List<Presenza> ShowContatti() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @Override
     public List<Presenza> getAllPresenza() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -67,5 +78,5 @@ public class PresenzaDAOPostgresImpl implements PresenzaDAO{
     public int cancellaPresenza(Presenza luoghi) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

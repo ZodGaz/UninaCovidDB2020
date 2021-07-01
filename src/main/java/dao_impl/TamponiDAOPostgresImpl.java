@@ -49,21 +49,22 @@ public class TamponiDAOPostgresImpl implements TamponiDAO {
 
     @Override
     public List<Tamponi> getAllTamponi() throws SQLException {
+        return null;
 //            getTamponiByTipologiaPS.setString(1, tipologia);
-        ResultSet rs= getAllTamponiPS.executeQuery();
-        List<Tamponi> lista = new ArrayList<Tamponi>();
-        while(rs.next())
-        {
-            Tamponi t = new Tamponi
-           (rs.getString("tipologia")); //rs.getString(1)
-            t.setEsito(rs.getString("esito"));
-            t.setDataTampone(rs.getDate("dataTampone"));
-            t.setCf_paziente(rs.getString("cf_paziente"));
-            t.setCod_paziente(rs.getString("cod_paziente"));
-            lista.add(t);
-        }
-        rs.close();
-        return lista;
+//        ResultSet rs= getAllTamponiPS.executeQuery();
+//        List<Tamponi> lista = new ArrayList<Tamponi>();
+//        while(rs.next())
+//        {
+//            Tamponi t = new Tamponi
+//           (rs.getString("tipologia")); //rs.getString(1)
+//            t.setEsito(rs.getString("esito"));
+//            t.setDataTampone(rs.getDate("dataTampone"));
+//            t.setCf_paziente(rs.getString("cf_paziente"));
+//            t.setCod_paziente(rs.getString("cod_paziente"));
+//            lista.add(t);
+//        }
+//        rs.close();
+//        return lista;
     
     }
 

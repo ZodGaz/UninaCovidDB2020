@@ -20,13 +20,16 @@ import java.util.List;
 public class LuoghiDAOPostgresImpl implements LuoghiDAO {
 
     private Connection connection;
-    public PreparedStatement InserisciLuoghiPS,getIDLocationPS;
+    public PreparedStatement InserisciLuoghiPS, getIDLocationPS, getAllLuoghiPS, ShowLuoghiRischioPS;
 
     //blablabla aggiungere altri prepared statements 
     public LuoghiDAOPostgresImpl(Connection connection) throws SQLException {
         this.connection = connection;
         InserisciLuoghiPS = connection.prepareStatement("INSERT INTO luoghi VALUES (?, ?)");
-        getIDLocationPS = connection.prepareStatement("SELECT idlocation FROM luoghi");;
+        getIDLocationPS = connection.prepareStatement("SELECT idlocation FROM luoghi");
+        getAllLuoghiPS = connection.prepareStatement("SELECT * FROM luoghi");
+        ShowLuoghiRischioPS = connection.prepareStatement("select distinct l.descrizione,l.idlocation from luoghi l right join luoghiarischio l1 on idlocationp=idlocation");
+
     }
 
     @Override
@@ -36,7 +39,6 @@ public class LuoghiDAOPostgresImpl implements LuoghiDAO {
 
     @Override
     public int inserisciLuoghi(Luoghi luoghi) throws SQLException {
-
 
         InserisciLuoghiPS.setString(1, luoghi.getDescrizione());
 
