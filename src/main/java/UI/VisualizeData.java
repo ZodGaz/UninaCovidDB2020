@@ -264,14 +264,13 @@ public class VisualizeData extends javax.swing.JFrame {
             dbconn = DBConnection.getInstance();
             Connection connection = dbconn.getConnection();
             PresenzaDAOPostgresImpl ps = new PresenzaDAOPostgresImpl(connection);
-            JOptionPane.showMessageDialog(null, dateComboBox, "Scegliere per quale data visualizzare i contagi", JOptionPane.QUESTION_MESSAGE);
-            System.out.println((String) dateComboBox.getSelectedItem());
+            JOptionPane.showMessageDialog(null, dateComboBox, "Data possibili contagi", JOptionPane.QUESTION_MESSAGE);
             ps.ShowContattiPS.setString(1, (String) dateComboBox.getSelectedItem());
             ResultSet rs = ps.ShowContattiPS.executeQuery();
-            System.out.println(rs);
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
-
-            JOptionPane.showMessageDialog(this, "ATTENZIONE:Sono stati notificati gli utenti risultati a contatto con un'individuo positivo accertato");
+            if (jTable1.getRowCount() > 0) {
+                JOptionPane.showMessageDialog(this, "ATTENZIONE:Sono stati notificati gli utenti risultati a contatto con un'individuo positivo accertato");
+            }
 
             //use rs2xml
         } catch (SQLException ex) {
@@ -327,7 +326,7 @@ public class VisualizeData extends javax.swing.JFrame {
             Connection connection = dbconn.getConnection();
             LuoghiDAOPostgresImpl ps = new LuoghiDAOPostgresImpl(connection);
             ResultSet rs = ps.ShowLuoghiRischioPS.executeQuery();
-             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
 
         } catch (SQLException ex) {
             Logger.getLogger(VisualizeData.class.getName()).log(Level.SEVERE, null, ex);

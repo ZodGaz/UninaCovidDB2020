@@ -1,6 +1,7 @@
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\PresenzaMenu.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\VisualizeData.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\entity\Persona.java
+C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\ModifyAnagrafica.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\daos\PresenzaDAO.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\entity\Presenza.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\entity\Residenza.java
@@ -14,6 +15,7 @@ C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\j
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\dao_impl\PresenzaDAOPostgresImpl.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\Anagrafica\Cognome.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\LocationMenu.java
+C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\ModifyMenu.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\ResidenzaMenu.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\daos\LuoghiDAO.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\dao_impl\TamponiDAOPostgresImpl.java
@@ -21,6 +23,7 @@ C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\j
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\CF.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\GeneratoreCodFiscale.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\daos\TamponiDAO.java
+C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\ModifyPresenza.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\app\Main.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\dbConfig\DBuilder.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\LeggiFileTXT.java
@@ -29,7 +32,10 @@ C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\j
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\dao_impl\PersonaDAOPostgresImpl.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\dao_impl\LuoghiDAOPostgresImpl.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\TamponiMenu.java
+C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\ModifyLuoghi.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\MainMenu.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\entity\Tamponi.java
+C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\ModifyTamponi.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\exceptions\ConnectionException.java
 C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\Anagrafica\Nome.java
+C:\Users\Radiu\OneDrive\Desktop\com.mycompany_Testdb_jar_1.0-SNAPSHOT\src\main\java\UI\ModifyResidenza.java

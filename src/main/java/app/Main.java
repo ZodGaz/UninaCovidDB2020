@@ -60,6 +60,8 @@ public class Main {
             builder.createDomainGender();
             builder.createDomainTipologia();
             builder.createTriggerResidenza();
+            builder.createViewPositivi();
+            builder.createViewLuoghiRischio();
 
             
             PersonaDAO dao = null;

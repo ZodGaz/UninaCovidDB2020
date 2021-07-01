@@ -25,8 +25,10 @@ public class PresenzaDAOPostgresImpl implements PresenzaDAO {
         this.connection = connection;
         InserisciPresenzaPS = connection.prepareStatement("INSERT INTO presenza VALUES (?, ?, ?, ?, ?, ?::tsrange)");
 //      ShowContattiPS = connection.prepareStatement("select p.cf_c ,p.timerange as PRESENTE_IN_DATA ,l.timerange as POSITIVO_PRESENTE_IN_DATA ,p.timerange && l.timerange as contatto_con_positivo from presenza p left join luoghiarischio l on l.idlocationp = p.idlocationp ");
-        ShowContattiPS = connection.prepareStatement("select p.cf_c ,p.timerange as PRESENTE_IN_DATA ,l.timerange as POSITIVO_PRESENTE_IN_DATA ,p.timerange && l.timerange as contatto_con_positivo from presenza p left join luoghiarischio l on l.idlocationp = p.idlocationp where p.timerange && l.timerange = true \n"
-                + "and p.cf_c != l.cf_c and p.\"data\" = ?::DATE");
+//        ShowContattiPS = connection.prepareStatement("select p.cf_c ,p.timerange as PRESENTE_IN_DATA ,l.timerange as POSITIVO_PRESENTE_IN_DATA ,p.timerange && l.timerange as contatto_con_positivo from presenza p left join luoghiarischio l on l.idlocationp = p.idlocationp where p.timerange && l.timerange = true \n"
+//                + "and p.cf_c != l.cf_c and p.\"data\" = ?::DATE");
+        ShowContattiPS = this.connection.prepareStatement("select distinct p.cf_c as contagiato,l.cf_c as positivo,p.timerange as PRESENTE_IN_DATA ,l.timerange as POSITIVO_PRESENTE_IN_DATA ,p.timerange && l.timerange as contatto_con_positivo from  presenza p left join luoghiarischio l  on l.idlocationp = p.idlocationp where p.timerange && l.timerange = true \n"
+                + "and p.cf_c != l.cf_c and p.\"data\" = ?::DATE and extract(month from p.\"data\") = extract(month from l.datatampone)");
         getDataPS = connection.prepareStatement("SELECT distinct \"data\" from presenza");
 
     }

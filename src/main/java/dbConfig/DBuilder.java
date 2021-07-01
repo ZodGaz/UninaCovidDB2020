@@ -333,5 +333,71 @@ public class DBuilder {
         return result;
     }
 
-}
+    public int createViewPositivi() throws ConnectionException {
 
+        int result = -1;
+
+        if (connectionExists()) {
+            try {
+                Statement st = connection.createStatement();
+
+                String sql = "CREATE OR REPLACE VIEW public.\"positivi \""
+                        + " AS"
+                        + " SELECT tamponi.tipologia,"
+                        + "    tamponi.esito,"
+                        + "    tamponi.datatampone,"
+                        + "    tamponi.cf_paziente,"
+                        + "    tamponi.cod_test"
+                        + "   FROM tamponi"
+                        + "  WHERE tamponi.esito::text = 'Positivo'::text;";
+
+                result = st.executeUpdate(sql);
+                st.close();
+
+            } catch (SQLException ex) {
+                System.out.println("SQL Exception in creation view positivi : " + ex);
+            }
+
+        } else {
+            throw new ConnectionException("A connection must exist!");
+        }
+
+        return result;
+    }
+
+    public int createViewLuoghiRischio() throws ConnectionException {
+
+        int result = -1;
+
+        if (connectionExists()) {
+            try {
+                Statement st = connection.createStatement();
+
+                String sql = "CREATE OR REPLACE VIEW public.luoghiarischio"
+                        + " AS"
+                        + " SELECT DISTINCT p.timerange,"
+                        + "    p.cf_c,"
+                        + "    p.idlocationp,"
+                        + "    p.orainizio,"
+                        + "    p.orafine,"
+                        + "    p.data,"
+                        + "    t.datatampone"
+                        + "   FROM presenza p"
+                        + "     LEFT JOIN tamponi t ON t.cf_paziente::text = p.cf_c::text"
+                        + "  WHERE t.esito::text = 'Positivo'::text;";
+
+                result = st.executeUpdate(sql);
+                st.close();
+
+            } catch (SQLException ex) {
+                System.out.println("SQL Exception in creation view LuoghiARischio : " + ex);
+            }
+
+        } else {
+            throw new ConnectionException("A connection must exist!");
+        }
+
+        return result;
+    }
+
+}

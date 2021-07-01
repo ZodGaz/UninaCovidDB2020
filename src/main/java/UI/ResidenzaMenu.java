@@ -317,7 +317,7 @@ public class ResidenzaMenu extends javax.swing.JFrame {
             jTextField3.setText("civico non valido!!");
             civico = null;
         } else {
-            int response = JOptionPane.showConfirmDialog(this, "Vuoi inserire questi dati all'interno del db?E' stato il codice fiscale", "Conferma", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int response = JOptionPane.showConfirmDialog(this, "Vuoi inserire questi dati all'interno del db?", "Conferma", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 try {
                     dbconn = DBConnection.getInstance();

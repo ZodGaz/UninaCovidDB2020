@@ -10,39 +10,37 @@ import UI.Anagrafica.DataN;
 import UI.Anagrafica.Nome;
 import UI.Controllo.Codice;
 import dao_impl.PersonaDAOPostgresImpl;
+import dao_impl.ResidenzaDAOPostgresImpl;
 import daos.PersonaDAO;
 import dbConfig.DBConnection;
 import entity.Persona;
+import entity.Residenza;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import org.jdesktop.swingx.JXDatePicker;
+import javax.swing.table.DefaultTableModel;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
- * @author linux
+ * @author Radiu
  */
-public class GeneratoreCodFiscale extends javax.swing.JFrame {
+public class ModifyAnagrafica extends javax.swing.JFrame {
 
     private String sex;
 
     /**
-     * Creates new form GeneratoreCodFiscale
+     * Creates new form ModifyAnagrafica
      */
-    public GeneratoreCodFiscale() {
+    public ModifyAnagrafica() {
         initComponents();
     }
 
@@ -55,34 +53,61 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10", "Title 11"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
         jDateChooser1.setDateFormatString("dd/MM/yyyy");
+
+        jLabel7.setText("PROVINCIA:");
+
+        jTextField6.setText("+39");
+        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField6ActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -126,11 +151,23 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel3.setText("COGNOME:");
+
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("COMUNE DI NASCITA:");
+
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
+
+        jLabel5.setText("DATA DI NASCITA:");
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,34 +181,6 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
-        jLabel1.setText("GENERATORE CODICE FISCALE ");
-
-        jLabel2.setText("NOME: ");
-
-        jLabel7.setText("PROVINCIA:");
-
-        jLabel3.setText("COGNOME:");
-
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("COMUNE DI NASCITA:");
-
-        jButton2.setText("GENERA CODICE FISCALE/\nINSERT INTO DATABASE ");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("DATA DI NASCITA:");
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
-
         jLabel10.setText("Email:");
 
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
@@ -180,30 +189,27 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("<-back to menu");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jLabel2.setText("NOME: ");
 
         jLabel11.setText("Recapito telefonico :");
 
-        jTextField6.setText("+39");
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Salva");
+
+        jButton2.setText("Aggiorna riga");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
-        jLabel12.setText("Genera il codice fiscale del paziente e ne inserisce i dati nel db ");
+        jButton3.setText("Cancella riga");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -217,68 +223,55 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(70, 70, 70))
+                                .addGap(95, 95, 95))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(55, 55, 55)
+                                .addGap(18, 18, 18)
                                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jButton3)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
+                        .addGap(1, 1, 1)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(208, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(52, 52, 52)
+                                .addComponent(jButton2)
+                                .addGap(48, 48, 48)
+                                .addComponent(jButton3))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
+                            .addComponent(jLabel11))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 734, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(59, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -291,9 +284,9 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
                         .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addGap(1, 1, 1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -311,28 +304,26 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addGap(81, 81, 81))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        // TODO add your handling code here:
+        String phoneNumber = jTextField6.getText();
+    }//GEN-LAST:event_jTextField6ActionPerformed
+
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         // TODO add your handling code here:
 
         sex = "M";
-
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
@@ -340,6 +331,18 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
 
         sex = "F";
     }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+        String provincia = jTextField4.getText().toUpperCase();
+        provincia.replaceAll(" ", "");
+
+        if (provincia.equals("")) {
+            jTextField4.setText("Provincia di nascita mancante !!");
+        } else {
+            System.out.println(provincia);
+        }
+    }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -375,134 +378,74 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextField3ActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-        String provincia = jTextField4.getText().toUpperCase();
-        provincia.replaceAll(" ", "");
-
-        if (provincia.equals("")) {
-            jTextField4.setText("Provincia di nascita mancante !!");
-        } else {
-            System.out.println(provincia);
-        }
-    }//GEN-LAST:event_jTextField4ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        PersonaDAO dao = null;
-        DBConnection dbconn = null;
-
-        int i;
-        String nome1, cogn, cBG, dt, luogo, prov, email = jTextField5.getText(), phoneNumber = jTextField6.getText();
-        Nome nome = new Nome();
-        Cognome cognome = new Cognome();
-        DataN datan = new DataN();
-        Codice codice = new Codice();
-        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-        String regexPhone = "^((00|\\+)39[\\. ]??)??3\\d{2}[\\. ]??\\d{6,7}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(email);
-        Pattern patternPhone = Pattern.compile(regexPhone);
-        Matcher matcherPhone = patternPhone.matcher(phoneNumber);
-        if (matcher.matches() == false) {
-            jTextField5.setText("Email non valida!!");
-            email = null;
-        } else if (matcherPhone.matches() == false) {
-            jTextField6.setText("Numero non valido!");
-            phoneNumber = null;
-        } else {
-
-            String labelSex, codifica, cons, voc;
-            //        Checkbox cB;
-
-            nome1 = jTextField1.getText();
-            cogn = jTextField2.getText();
-            //        cB=cbg.getSelectedCheckbox();labelSex=cB.getLabel();
-            labelSex = sex;
-
-            System.out.println(labelSex);
-            dt = jLabel8.getText();
-            luogo = jTextField3.getText();
-            prov = jTextField4.getText();
-            DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
-            java.util.Date utilDate = new java.util.Date();
-            utilDate = jDateChooser1.getDate();
-            String s = fmt.format(jDateChooser1.getDate());
-
-//            jLabel8.setText(s);
-//
-//            System.out.println(s);
-
-            if (nome1.equals(
-                    "") | cogn.equals("") | dt.equals("") | luogo.equals("") | prov.equals("")) {
-
-            } else {
-
-                codifica = "";
-                codifica += cognome.calcolaCognome(cogn);
-                codifica += nome.calcolaNome(nome1);
-                System.out.println(codifica);
-                codifica += datan.calcolaData(dt, labelSex);
-                System.out.println(codifica);
-                String campi[] = {"", "", ""};
-                String cartella = "C:\\Users\\Radiu\\OneDrive\\Documenti\\NetBeansProjects\\Inserimento\\";
-                String nomeFile = "Codici_catastali";
-                String estensione = ".txt";
-                String file = cartella + nomeFile + estensione;
-                new LeggiFileTXT(campi, luogo, prov, file);
-                if (campi[0].equals("")) {
-                    System.err.println("Luogo non esistente !!");
-                } else {
-                    codifica += campi[0];
-                }
-                System.out.println(codifica);
-                codifica += codice.codiceControllo(codifica);
-                System.out.println(codifica);
-                jLabel9.setText(codifica);
-
-                int response = JOptionPane.showConfirmDialog(this, "Vuoi inserire questi dati all'interno del db?", "Conferma", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (response == JOptionPane.YES_OPTION) {
-                    try {
-                        dbconn = DBConnection.getInstance();
-                        Connection connection = dbconn.getConnection();
-                        dao = new PersonaDAOPostgresImpl(connection);
-                        SimpleDateFormat c = new SimpleDateFormat("dd/MM/yyyy");
-                        Persona p1 = new Persona(codifica, nome1, cogn, email, labelSex, prov, luogo, phoneNumber, c.parse(dt));
-                        int res = dao.inserisciPersona(p1);
-                        System.out.println(res);
-                        List<Persona> lista = dao.getPersonaByNome("P%");
-                        for (Persona pp : lista) {
-                            System.out.println(pp.toString());
-                        }
-
-                    } catch (SQLException | ParseException ex) {
-                        Logger.getLogger(GeneratoreCodFiscale.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else if (response == JOptionPane.NO_OPTION || response == JOptionPane.CLOSED_OPTION) {
-                    System.out.println("UI.GeneratoreCodFiscale.jButton2ActionPerformed()-> no insert done ");
-                }
-            }
-        }
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
         // TODO add your handling code here:
         String email = jTextField5.getText();
 
-
     }//GEN-LAST:event_jTextField5ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-        new InsertMenu().setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        PersonaDAO dao = null;
+        DBConnection dbconn = null;
+        try {
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
-        // TODO add your handling code here:
-        String phoneNumber = jTextField6.getText();
-    }//GEN-LAST:event_jTextField6ActionPerformed
+            dbconn = DBConnection.getInstance();
+            Connection connection = dbconn.getConnection();
+            dao = new PersonaDAOPostgresImpl(connection);
+            PersonaDAOPostgresImpl ps = new PersonaDAOPostgresImpl(connection);
+            ResultSet rs = ps.getAllPersonaPS.executeQuery();
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+            int row = jTable1.getSelectedRow();
+            String value = (jTable1.getModel().getValueAt(row, 0).toString());
+
+            int i;
+            String nome1, cogn, cBG, dt, luogo, prov, email = jTextField5.getText(), phoneNumber = jTextField6.getText();
+            Nome nome = new Nome();
+            Cognome cognome = new Cognome();
+            DataN datan = new DataN();
+            Codice codice = new Codice();
+            String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+            String regexPhone = "^((00|\\+)39[\\. ]??)??3\\d{2}[\\. ]??\\d{6,7}$";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(email);
+            Pattern patternPhone = Pattern.compile(regexPhone);
+            Matcher matcherPhone = patternPhone.matcher(phoneNumber);
+            if (matcher.matches() == false) {
+                jTextField5.setText("Email non valida!!");
+                email = null;
+            } else if (matcherPhone.matches() == false) {
+                jTextField6.setText("Numero non valido!");
+                phoneNumber = null;
+            } else {
+
+                String labelSex, codifica, cons, voc;
+                //        Checkbox cB;
+
+                nome1 = jTextField1.getText();
+                cogn = jTextField2.getText();
+                //        cB=cbg.getSelectedCheckbox();labelSex=cB.getLabel();
+                labelSex = sex;
+
+                System.out.println(labelSex);
+                dt = jLabel8.getText();
+                luogo = jTextField3.getText();
+                prov = jTextField4.getText();
+                DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+                java.util.Date utilDate = new java.util.Date();
+                utilDate = jDateChooser1.getDate();
+                String s = fmt.format(jDateChooser1.getDate());
+                SimpleDateFormat c = new SimpleDateFormat("dd/MM/yyyy");
+                Persona p1 = new Persona("", nome1, cogn, email, labelSex, prov, luogo, phoneNumber, c.parse(dt));
+                int res = dao.updatePersona(p1);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ModifyAnagrafica.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(ModifyAnagrafica.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -518,40 +461,34 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GeneratoreCodFiscale.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyAnagrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GeneratoreCodFiscale.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyAnagrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GeneratoreCodFiscale.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyAnagrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GeneratoreCodFiscale.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyAnagrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GeneratoreCodFiscale().setVisible(true);
+                new ModifyAnagrafica().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -559,10 +496,11 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
