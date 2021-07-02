@@ -37,25 +37,25 @@ import entity.Persona;
 import java.text.SimpleDateFormat;
 
 public class PersonaDAOPostgresImpl implements PersonaDAO {
-    
+
     private Connection connection;
-    public PreparedStatement getAllPersonaPS, getCfPersonaPS;
-    private PreparedStatement getPersonaByNomePS, inserisciPersonaPS, updatePersonaPS,deletePersonaPS;
-    
+    public PreparedStatement getAllPersonaPS, getCfPersonaPS, updatePersonaPS, deletePersonaPS;
+    private PreparedStatement getPersonaByNomePS, inserisciPersonaPS;
+
     public PersonaDAOPostgresImpl(Connection connection) throws SQLException {
         this.connection = connection;
         getPersonaByNomePS = connection.prepareStatement("SELECT * FROM persona where nome like ?");
         getAllPersonaPS = connection.prepareStatement("SELECT * FROM persona");
         inserisciPersonaPS = connection.prepareStatement("INSERT INTO persona VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        getCfPersonaPS = connection.prepareStatement("SELECT cf FROM persona");
+        getCfPersonaPS = connection.prepareStatement("SELECT cf,Nome,Cognome FROM persona");
         updatePersonaPS = connection.prepareStatement("UPDATE public.persona"
-                + "SET cf=?, nome=?, cognome=?, email=?, sesso=?, provincian=?, cittan=?, numerotel=?, datan=?"
-                + "WHERE cf = ?;");
+                + " SET cf=?, nome=?, cognome=?, email=?, sesso=?, provincian=?, cittan=?, numerotel=?, datan=?"
+                + " WHERE cf = ?;");
         deletePersonaPS = connection.prepareStatement("DELETE FROM public.persona"
-                + "WHERE <condition>;");
+                + " WHERE  cf = ?;");
 
     }
-    
+
     @Override
     public List<Persona> getAllPersona() throws SQLException {
 //         getAllPersonaPS.setString(0,"n );
@@ -76,10 +76,10 @@ public class PersonaDAOPostgresImpl implements PersonaDAO {
         rs.close();
         return lista;
     }
-    
+
     @Override
     public List<Persona> getPersonaByNome(String name) throws SQLException {
-        
+
         getPersonaByNomePS.setString(1, name);
         ResultSet rs = getPersonaByNomePS.executeQuery();
         List<Persona> lista = new ArrayList<Persona>();
@@ -98,22 +98,22 @@ public class PersonaDAOPostgresImpl implements PersonaDAO {
         rs.close();
         return lista;
     }
-    
+
     @Override
     public List<Persona> getPersonaByCognome(String cognome) {
         return null;
     }
-    
+
     @Override
     public List<Persona> getPersonaByCF(String cf) {
         return null;
     }
-    
+
     @Override
     public List<Persona> getPersonaByNomeCognome(String nome, String cognome) {
         return null;
     }
-    
+
     @Override
     public int inserisciPersona(Persona persona) throws SQLException {
         inserisciPersonaPS.setString(1, persona.getCf());
@@ -125,19 +125,36 @@ public class PersonaDAOPostgresImpl implements PersonaDAO {
         inserisciPersonaPS.setString(7, persona.getCittaN());
         inserisciPersonaPS.setString(8, persona.getNumeroTel());
         inserisciPersonaPS.setDate(9, new java.sql.Date(persona.getDatan().getTime()));
-        
+
         System.out.println(inserisciPersonaPS);
         int row = inserisciPersonaPS.executeUpdate();
         return row;
     }
-    
+
     @Override
-    public int cancellaPersona(Persona persona) {
-        return 0;
+    public int cancellaPersona(Persona persona) throws SQLException {
+        deletePersonaPS.setString(1, persona.getCf());
+        
+        System.out.println(deletePersonaPS);
+        int row = deletePersonaPS.executeUpdate();
+        return row;
     }
 
     @Override
     public int updatePersona(Persona persona) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        updatePersonaPS.setString(1, persona.getCf());
+        updatePersonaPS.setString(2, persona.getNome());
+        updatePersonaPS.setString(3, persona.getCognome());
+        updatePersonaPS.setString(4, persona.getEmail());
+        updatePersonaPS.setString(5, persona.getSesso());
+        updatePersonaPS.setString(6, persona.getProvinciaN());
+        updatePersonaPS.setString(7, persona.getCittaN());
+        updatePersonaPS.setString(8, persona.getNumeroTel());
+        updatePersonaPS.setDate(9, new java.sql.Date(persona.getDatan().getTime()));
+        updatePersonaPS.setString(10, persona.getCf());
+
+        System.out.println(updatePersonaPS);
+        int row = updatePersonaPS.executeUpdate();
+        return row;
     }
 }

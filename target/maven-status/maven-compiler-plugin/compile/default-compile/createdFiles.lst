@@ -31,6 +31,7 @@ UI\PresenzaMenu$3.class
 UI\TamponiMenu$2.class
 UI\LocationMenu$5.class
 entity\Presenza.class
+UI\ModifyAnagrafica$14.class
 UI\VisualizeData$2.class
 UI\TamponiMenu$6.class
 UI\ModifyMenu$7.class
@@ -43,6 +44,7 @@ UI\Loginn.class
 UI\LocationMenu$4.class
 UI\ModifyLuoghi$1.class
 UI\ResidenzaMenu$5.class
+UI\ModifyAnagrafica$15.class
 UI\TestMenu$1.class
 entity\Persona.class
 UI\ModifyMenu.class
@@ -70,6 +72,7 @@ UI\ModifyAnagrafica$1.class
 UI\ModifyMenu$2.class
 UI\ResidenzaMenu$7.class
 UI\TamponiMenu$1.class
+UI\ModifyAnagrafica$13.class
 UI\PresenzaMenu$5.class
 UI\LocationMenu$3.class
 UI\LocationMenu$6.class
@@ -123,6 +126,7 @@ entity\Tamponi.class
 UI\InsertMenu$6.class
 dbConfig\DBConnection.class
 UI\GeneratoreCodFiscale$11.class
+UI\ModifyAnagrafica$12.class
 UI\ResidenzaMenu$1.class
 UI\PresenzaMenu$2.class
 UI\Controllo\Codice.class

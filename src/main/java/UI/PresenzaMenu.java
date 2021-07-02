@@ -10,6 +10,7 @@ import dao_impl.LuoghiDAOPostgresImpl;
 import dao_impl.PersonaDAOPostgresImpl;
 import dao_impl.PresenzaDAOPostgresImpl;
 import daos.LuoghiDAO;
+import daos.PersonaDAO;
 import daos.PresenzaDAO;
 import dbConfig.DBConnection;
 import entity.Luoghi;
@@ -21,6 +22,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +33,7 @@ import javax.swing.JOptionPane;
  * @author Radiu
  */
 public class PresenzaMenu extends javax.swing.JFrame {
+            List<PersonaDAO> listPersona = null;
 
     /**
      * Creates new form PresenzaMenu
@@ -271,6 +274,7 @@ public class PresenzaMenu extends javax.swing.JFrame {
             LuoghiDAOPostgresImpl ls = new LuoghiDAOPostgresImpl(connection);
             ResultSet luoghirs = ls.getIDLocationPS.executeQuery();
             ResultSet rs = ps.getCfPersonaPS.executeQuery();
+            
             while (rs.next()) {
                 jComboBox1.addItem(rs.getString("cf"));
             }

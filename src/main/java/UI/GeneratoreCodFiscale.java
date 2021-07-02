@@ -429,9 +429,9 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
             utilDate = jDateChooser1.getDate();
             String s = fmt.format(jDateChooser1.getDate());
 
-//            jLabel8.setText(s);
-//
-//            System.out.println(s);
+            jLabel8.setText(s);
+
+            System.out.println(s);
 
             if (nome1.equals(
                     "") | cogn.equals("") | dt.equals("") | luogo.equals("") | prov.equals("")) {
