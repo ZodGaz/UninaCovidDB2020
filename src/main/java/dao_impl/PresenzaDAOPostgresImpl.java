@@ -19,7 +19,7 @@ import java.util.List;
 public class PresenzaDAOPostgresImpl implements PresenzaDAO {
 
     private Connection connection;
-    public PreparedStatement InserisciPresenzaPS, ShowContattiPS, getDataPS;
+    public PreparedStatement InserisciPresenzaPS, ShowContattiPS, getDataPS,getAllPresenzaPS;
 
     public PresenzaDAOPostgresImpl(Connection connection) throws SQLException {
         this.connection = connection;
@@ -30,6 +30,8 @@ public class PresenzaDAOPostgresImpl implements PresenzaDAO {
         ShowContattiPS = this.connection.prepareStatement("select distinct p.cf_c as contagiato,l.cf_c as positivo,p.timerange as PRESENTE_IN_DATA ,l.timerange as POSITIVO_PRESENTE_IN_DATA ,p.timerange && l.timerange as contatto_con_positivo from  presenza p left join luoghiarischio l  on l.idlocationp = p.idlocationp where p.timerange && l.timerange = true \n"
                 + "and p.cf_c != l.cf_c and p.\"data\" = ?::DATE and extract(month from p.\"data\") = extract(month from l.datatampone)");
         getDataPS = connection.prepareStatement("SELECT distinct \"data\" from presenza");
+        getAllPresenzaPS = connection.prepareStatement("SELECT * from presenza");
+        
 
     }
 
