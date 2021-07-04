@@ -21,7 +21,7 @@ import java.util.List;
 public class ResidenzaDAOPostgresImpl implements ResidenzaDAO {
 
     private Connection connection;
-    public PreparedStatement inserisciResidenzaPS, getResidenzaPS, updateResidenzaPS, getAllResidenzaPS;
+    public PreparedStatement inserisciResidenzaPS, getResidenzaPS, updateResidenzaPS, getAllResidenzaPS, deleteResidenzaPS,ConviventiRischioPS;
 
     //blablabla aggiungere altri prepared statements 
     public ResidenzaDAOPostgresImpl(Connection connection) throws SQLException {
@@ -30,6 +30,9 @@ public class ResidenzaDAOPostgresImpl implements ResidenzaDAO {
         getAllResidenzaPS = connection.prepareStatement("SELECT * FROM residenza");
         inserisciResidenzaPS = connection.prepareStatement("INSERT INTO residenza VALUES (?, ?, ?, ?, ?)");
         updateResidenzaPS = connection.prepareStatement("UPDATE residenza SET via = ?,citta = ?,civico = ?,cap = ? WHERE cf_r = ?");
+        ConviventiRischioPS = connection.prepareStatement("SELECT * FROM conviventiarischio");
+        deleteResidenzaPS = connection.prepareStatement("DELETE FROM public.residenza"
+                + " WHERE  cf_r = ?;");
 
     }
 
@@ -39,10 +42,8 @@ public class ResidenzaDAOPostgresImpl implements ResidenzaDAO {
 
         ResultSet rs = getAllResidenzaPS.executeQuery();
         List<Residenza> lista = new ArrayList<Residenza>();
-        while (rs.next()) 
-        {
-            Residenza p = new Residenza
-           (rs.getString("cf")); //rs.getString(1)
+        while (rs.next()) {
+            Residenza p = new Residenza(rs.getString("cf")); //rs.getString(1)
             p.setVia(rs.getString("nome"));
             p.setCitta(rs.getString("cognome"));
             p.setCivico(rs.getString("email"));
@@ -95,7 +96,11 @@ public class ResidenzaDAOPostgresImpl implements ResidenzaDAO {
 
     @Override
     public int cancellaResidenza(Residenza residenza) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          deleteResidenzaPS.setString(1, residenza.getCf_r());
+        
+        System.out.println(deleteResidenzaPS);
+        int row = deleteResidenzaPS.executeUpdate();
+        return row;
     }
 
     @Override

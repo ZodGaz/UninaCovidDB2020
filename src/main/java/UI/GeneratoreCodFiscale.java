@@ -467,7 +467,7 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
                         Connection connection = dbconn.getConnection();
                         dao = new PersonaDAOPostgresImpl(connection);
                         SimpleDateFormat c = new SimpleDateFormat("dd/MM/yyyy");
-                        Persona p1 = new Persona(codifica, nome1, cogn, email, labelSex, prov, luogo, phoneNumber, c.parse(dt));
+                        Persona p1 = new Persona(codifica, nome1, cogn, email, labelSex, prov.toUpperCase(), luogo.toUpperCase(), phoneNumber, c.parse(dt));
                         int res = dao.inserisciPersona(p1);
                         System.out.println(res);
                         List<Persona> lista = dao.getPersonaByNome("P%");

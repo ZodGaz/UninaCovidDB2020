@@ -61,7 +61,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("MODIFICA DATI (ADMIN ONLY)");
+        jButton3.setText("ADMIN SETTINGS (ADMIN ONLY)");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -136,7 +136,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new ModifyMenu().setVisible(true);
+        new TestMenu().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

@@ -309,8 +309,8 @@ public class DBuilder {
                 Statement st = connection.createStatement();
 
                 String sql = "CREATE FUNCTION residenza_import() RETURNS trigger AS $residenza_import$\n"
-                        + "BEGIN"
-                        + "IF NEW.cf IS NOT NULL THEN"
+                        + "BEGIN "
+                        + "IF NEW.cf IS NOT NULL THEN "
                         + "INSERT INTO residenza VALUES ('to_define','to_define','to_define',NEW.cf,'to_define');"
                         + "END IF;"
                         + "RETURN NULL;"
@@ -391,6 +391,65 @@ public class DBuilder {
 
             } catch (SQLException ex) {
                 System.out.println("SQL Exception in creation view LuoghiARischio : " + ex);
+            }
+
+        } else {
+            throw new ConnectionException("A connection must exist!");
+        }
+
+        return result;
+    }
+
+    public int createViewConviventi() throws ConnectionException {
+
+        int result = -1;
+
+        if (connectionExists()) {
+            try {
+                Statement st = connection.createStatement();
+
+                String sql = "CREATE OR REPLACE VIEW public.conviventi"
+                        + " AS"
+                        + " SELECT DISTINCT r.cf_r AS vive_con,"
+                        + "    r2.cf_r"
+                        + "   FROM residenza r"
+                        + "     LEFT JOIN residenza r2 ON r.cf_r::text <> r2.cf_r::text"
+                        + "  WHERE r.cap::text = r2.cap::text AND r.citta::text = r2.citta::text AND r.civico::text = r2.civico::text AND r.via::text = r2.via::text;";
+
+                result = st.executeUpdate(sql);
+                st.close();
+
+            } catch (SQLException ex) {
+                System.out.println("SQL Exception in creation view conviventi : " + ex);
+            }
+
+        } else {
+            throw new ConnectionException("A connection must exist!");
+        }
+
+        return result;
+    }
+
+    public int createViewConviventiARischio() throws ConnectionException {
+
+        int result = -1;
+
+        if (connectionExists()) {
+            try {
+                Statement st = connection.createStatement();
+
+                String sql = "CREATE OR REPLACE VIEW public.conviventiarischio"
+                        + " AS"
+                        + " SELECT DISTINCT c.cf_r AS convivente_a_rischio,"
+                        + "    c.vive_con AS convivente_positivo"
+                        + "   FROM \"positivi \" p"
+                        + "     JOIN conviventi c ON p.cf_paziente::text = c.vive_con::text;";
+
+                result = st.executeUpdate(sql);
+                st.close();
+
+            } catch (SQLException ex) {
+                System.out.println("SQL Exception in creation view conviventi : " + ex);
             }
 
         } else {

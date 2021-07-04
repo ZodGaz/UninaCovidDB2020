@@ -67,6 +67,7 @@ public class VisualizeData extends javax.swing.JFrame {
         jToggleButton5 = new javax.swing.JToggleButton();
         jToggleButton7 = new javax.swing.JToggleButton();
         jToggleButton6 = new javax.swing.JToggleButton();
+        jToggleButton8 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -153,6 +154,15 @@ public class VisualizeData extends javax.swing.JFrame {
             }
         });
 
+        jToggleButton8.setBackground(new java.awt.Color(204, 0, 0));
+        jToggleButton8.setForeground(new java.awt.Color(0, 0, 0));
+        jToggleButton8.setText("Avviso conviventi");
+        jToggleButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -166,7 +176,8 @@ public class VisualizeData extends javax.swing.JFrame {
                     .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1087, Short.MAX_VALUE)
                 .addContainerGap())
@@ -188,6 +199,8 @@ public class VisualizeData extends javax.swing.JFrame {
                 .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jToggleButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jToggleButton1)
                 .addGap(18, 18, 18)
@@ -346,7 +359,6 @@ public class VisualizeData extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton7ActionPerformed
 
     private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
-        // TODO add your handling code here:
         PresenzaDAO dao = null;
         DBConnection dbconn = null;
 
@@ -361,6 +373,25 @@ public class VisualizeData extends javax.swing.JFrame {
             Logger.getLogger(VisualizeData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jToggleButton6ActionPerformed
+
+    private void jToggleButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton8ActionPerformed
+        ResidenzaDAO dao = null;
+        DBConnection dbconn = null;
+
+        try {
+            dbconn = DBConnection.getInstance();
+            Connection connection = dbconn.getConnection();
+            ResidenzaDAOPostgresImpl ps = new ResidenzaDAOPostgresImpl(connection);
+            ResultSet rs = ps.ConviventiRischioPS.executeQuery();
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+            if (jTable1.getRowCount() > 0) {
+                JOptionPane.showMessageDialog(this, "ATTENZIONE:Sono stati notificati gli utenti che risultano vivere insieme");
+            }
+
+            //use rs2xml
+        } catch (SQLException ex) {
+            Logger.getLogger(VisualizeData.class.getName()).log(Level.SEVERE, null, ex);
+        }    }//GEN-LAST:event_jToggleButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -408,5 +439,6 @@ public class VisualizeData extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JToggleButton jToggleButton7;
+    private javax.swing.JToggleButton jToggleButton8;
     // End of variables declaration//GEN-END:variables
 }

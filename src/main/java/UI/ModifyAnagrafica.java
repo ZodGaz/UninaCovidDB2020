@@ -209,7 +209,7 @@ public class ModifyAnagrafica extends javax.swing.JFrame {
 
         jLabel11.setText("Recapito telefonico :");
 
-        jButton1.setText("Salva");
+        jButton1.setText("<-back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

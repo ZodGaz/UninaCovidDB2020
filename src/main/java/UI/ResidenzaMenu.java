@@ -330,9 +330,9 @@ public class ResidenzaMenu extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(ResidenzaMenu.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                   } else if (response == JOptionPane.NO_OPTION || response == JOptionPane.CLOSED_OPTION) {
-                            System.out.println("UI.ResidenzaMenu.jButton2ActionPerformed()-> no insert done ");
-                   }
+            } else if (response == JOptionPane.NO_OPTION || response == JOptionPane.CLOSED_OPTION) {
+                System.out.println("UI.ResidenzaMenu.jButton2ActionPerformed()-> no insert done ");
+            }
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed

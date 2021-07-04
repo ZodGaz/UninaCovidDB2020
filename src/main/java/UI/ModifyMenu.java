@@ -145,27 +145,29 @@ public class ModifyMenu extends javax.swing.JFrame {
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
+        new ModifyResidenza().setVisible(true);
 
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new ModifyAnagrafica().setVisible(true);
+        new ModifyTamponi().setVisible(true);
 
     }//GEN-LAST:event_jToggleButton3ActionPerformed
 
     private void jToggleButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton5ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new ModifyAnagrafica().setVisible(true);
+        new ModifyLuoghi().setVisible(true);
 
     }//GEN-LAST:event_jToggleButton5ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         // TODO add your handling code here:  
         this.setVisible(false);
-        new ModifyAnagrafica().setVisible(true);
+        new ModifyPresenza().setVisible(true);
 
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 

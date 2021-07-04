@@ -139,7 +139,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="MODIFICA DATI (ADMIN ONLY)"/>
+            <Property name="text" type="java.lang.String" value="ADMIN SETTINGS (ADMIN ONLY)"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>

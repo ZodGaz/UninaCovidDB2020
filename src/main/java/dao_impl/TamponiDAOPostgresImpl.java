@@ -30,22 +30,27 @@ import java.time.*;
 import daos.TamponiDAO;
 import entity.Tamponi;
 import java.text.SimpleDateFormat;
+
 /**
  *
  * @author Radiu
  */
 public class TamponiDAOPostgresImpl implements TamponiDAO {
- 
+
     private Connection connection;
-    public PreparedStatement getTamponiByTipologiaPS, inserisciTamponiPS,getAllTamponiPS;
+    public PreparedStatement getTamponiByTipologiaPS, inserisciTamponiPS, getAllTamponiPS, updateTamponiPS, deleteTamponiPS;
 
     public TamponiDAOPostgresImpl(Connection connection) throws SQLException {
-        this.connection=connection;
+        this.connection = connection;
         getAllTamponiPS = connection.prepareStatement("SELECT * FROM tamponi");
         getTamponiByTipologiaPS = connection.prepareStatement("SELECT * FROM tamponi where tipologia like ?");
         inserisciTamponiPS = connection.prepareStatement("INSERT INTO tamponi VALUES (?, ?, ?, ?, ?)");
+        updateTamponiPS = connection.prepareStatement("UPDATE public.tamponi"
+                + " SET tipologia=?, esito=?, datatampone=?, cf_paziente=?, cod_test=?"
+                + " WHERE cf_paziente = ?;");
+        deleteTamponiPS = connection.prepareStatement("DELETE FROM public.tamponi"
+                + " WHERE  cf_paziente = ?;");
     }
-
 
     @Override
     public List<Tamponi> getAllTamponi() throws SQLException {
@@ -65,20 +70,16 @@ public class TamponiDAOPostgresImpl implements TamponiDAO {
 //        }
 //        rs.close();
 //        return lista;
-    
+
     }
 
-   
-    public List<Tamponi> getTamponiByTipologia(String tipologia) throws SQLException
-    {
-        
+    public List<Tamponi> getTamponiByTipologia(String tipologia) throws SQLException {
+
         getTamponiByTipologiaPS.setString(1, tipologia);
-        ResultSet rs= getTamponiByTipologiaPS.executeQuery();
+        ResultSet rs = getTamponiByTipologiaPS.executeQuery();
         List<Tamponi> lista = new ArrayList<Tamponi>();
-        while(rs.next())
-        {
-            Tamponi t = new Tamponi
-           (rs.getString("tipologia")); //rs.getString(1)
+        while (rs.next()) {
+            Tamponi t = new Tamponi(rs.getString("tipologia")); //rs.getString(1)
             t.setEsito(rs.getString("esito"));
             t.setDataTampone(rs.getDate("dataTampone"));
             t.setCf_paziente(rs.getString("cf_paziente"));
@@ -98,26 +99,24 @@ public class TamponiDAOPostgresImpl implements TamponiDAO {
     public List<Tamponi> getTamponiByCF(String cf_paziente) {
         return null;
     }
-    
-    @Override
-    public List<Tamponi> getTamponiByData(java.util.Date dataTampone){
-        return null;
-    }
-  
-    @Override
-    public List<Tamponi> getTamponiByCod_Paziente(String cod_paziente){
-         return null;
-    }
 
-    
     @Override
-        public List<Tamponi> getTamponiByCodicePaziente_Data(String cod_paziente, java.util.Date dataTampone){
+    public List<Tamponi> getTamponiByData(java.util.Date dataTampone) {
         return null;
     }
 
     @Override
-    public int inserisciTamponi(Tamponi Tamponi) throws SQLException
-    {
+    public List<Tamponi> getTamponiByCod_Paziente(String cod_paziente) {
+        return null;
+    }
+
+    @Override
+    public List<Tamponi> getTamponiByCodicePaziente_Data(String cod_paziente, java.util.Date dataTampone) {
+        return null;
+    }
+
+    @Override
+    public int inserisciTamponi(Tamponi Tamponi) throws SQLException {
         inserisciTamponiPS.setString(1, Tamponi.getTipologia());
         inserisciTamponiPS.setString(2, Tamponi.getEsito());
         inserisciTamponiPS.setDate(3, new java.sql.Date(Tamponi.getDataTampone().getTime()));
@@ -129,9 +128,22 @@ public class TamponiDAOPostgresImpl implements TamponiDAO {
     }
 
     @Override
-    public int cancellaTamponi(Tamponi Tamponi) {
-        return 0;
+    public int cancellaTamponi(Tamponi tamponi) throws SQLException {
+        deleteTamponiPS.setString(1, tamponi.getCf_paziente());
+        System.out.println(deleteTamponiPS);
+        int row = deleteTamponiPS.executeUpdate();
+        return row;
+    }
+
+    @Override
+    public int updateTamponi(Tamponi tamponi) throws SQLException {
+        updateTamponiPS.setString(1, tamponi.getTipologia());
+        updateTamponiPS.setString(2, tamponi.getEsito());
+        updateTamponiPS.setDate(3, new java.sql.Date(tamponi.getDataTampone().getTime()));
+        updateTamponiPS.setString(4, tamponi.getCf_paziente());
+        updateTamponiPS.setString(5, tamponi.getCod_paziente());
+        System.out.println(updateTamponiPS);
+        int row = updateTamponiPS.executeUpdate();
+        return row;
     }
 }
-
-

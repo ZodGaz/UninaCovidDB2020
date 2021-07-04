@@ -17,7 +17,8 @@ public interface LuoghiDAO {
     public List<Luoghi> getAllLuoghi() throws SQLException;
     public List<Luoghi> getIDLocation() throws SQLException;
 
-
+    public int updateLuoghi(Luoghi luoghi) throws SQLException;
+    
     public int inserisciLuoghi(Luoghi luoghi) throws SQLException;
 
     public int cancellaLuoghi(Luoghi luoghi)throws SQLException;
