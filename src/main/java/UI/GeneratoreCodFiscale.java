@@ -55,6 +55,7 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel1 = new javax.swing.JPanel();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -86,6 +87,7 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Maschio");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +95,7 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Femmina");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -545,6 +548,7 @@ public class GeneratoreCodFiscale extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private com.toedter.calendar.JDateChooser jDateChooser1;

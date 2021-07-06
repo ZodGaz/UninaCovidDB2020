@@ -291,6 +291,8 @@ public class VisualizeData extends javax.swing.JFrame {
             PresenzaDAOPostgresImpl ps = new PresenzaDAOPostgresImpl(connection);
             JOptionPane.showMessageDialog(null, dateComboBox, "Data possibili contagi", JOptionPane.QUESTION_MESSAGE);
             ps.ShowContattiPS.setString(1, (String) dateComboBox.getSelectedItem());
+            ps.ShowContattiPS.setString(2, (String) dateComboBox.getSelectedItem());
+
             ResultSet rs = ps.ShowContattiPS.executeQuery();
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
             if (jTable1.getRowCount() > 0) {

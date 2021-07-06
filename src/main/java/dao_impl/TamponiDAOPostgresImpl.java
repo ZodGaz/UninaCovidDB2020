@@ -49,7 +49,7 @@ public class TamponiDAOPostgresImpl implements TamponiDAO {
                 + " SET tipologia=?, esito=?, datatampone=?, cf_paziente=?, cod_test=?"
                 + " WHERE cf_paziente = ?;");
         deleteTamponiPS = connection.prepareStatement("DELETE FROM public.tamponi"
-                + " WHERE  cf_paziente = ?;");
+                + " WHERE  cod_test = ?;");
     }
 
     @Override

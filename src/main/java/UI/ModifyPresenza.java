@@ -329,7 +329,7 @@ public class ModifyPresenza extends javax.swing.JFrame {
                 Connection connection = dbconn.getConnection();
                 dao = new PresenzaDAOPostgresImpl(connection);
                 PresenzaDAOPostgresImpl ps = new PresenzaDAOPostgresImpl(connection);
-                ps.deletePresenzaPS.setString(1, jTextField1.getText());
+                ps.deletePresenzaPS.setString(1, jTextField5.getText());
                 ResultSet rs = ps.deletePresenzaPS.executeQuery();
 
             } catch (SQLException ex) {

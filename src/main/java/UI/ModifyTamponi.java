@@ -356,7 +356,7 @@ public class ModifyTamponi extends javax.swing.JFrame {
             Connection connection = dbconn.getConnection();
             dao = new TamponiDAOPostgresImpl(connection);
             TamponiDAOPostgresImpl ps = new TamponiDAOPostgresImpl(connection);
-            ps.deleteTamponiPS.setString(1, jTextField2.getText());
+            ps.deleteTamponiPS.setString(1, jTextField3.getText());
             System.out.println(ps.deleteTamponiPS);
 
             ResultSet rs = ps.deleteTamponiPS.executeQuery();
