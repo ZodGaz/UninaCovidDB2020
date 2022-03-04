@@ -34,7 +34,7 @@
             <classifier>core</classifier>
         </dependency>
         <dependency>
-            <groupId>sei una troia org.netbeans.external</groupId>
+            <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE120</version>
         </dependency>
